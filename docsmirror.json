@@ -1,6 +1,6 @@
 {
   "docsmirror": "1.0",
-  "generatedAt": "2026-08-11T16:00:06.897Z",
+  "generatedAt": "2026-08-11T16:35:28.322Z",
   "docsRoot": "docs",
   "nodes": [
     {
@@ -174,7 +174,7 @@
             },
             {
               "file": "packages/web/public/healthview.js",
-              "line": 13,
+              "line": 14,
               "symbol": "UNRESOLVED",
               "anchor": "what-check-verifies"
             }
@@ -319,7 +319,7 @@
         },
         {
           "file": "packages/web/public/healthview.js",
-          "line": 13,
+          "line": 14,
           "symbol": "UNRESOLVED",
           "anchor": "what-check-verifies"
         }
@@ -735,7 +735,7 @@
             },
             {
               "file": "packages/web/public/manifestview.js",
-              "line": 13,
+              "line": 14,
               "symbol": "SORTS",
               "anchor": "the-format"
             }
@@ -890,7 +890,7 @@
         },
         {
           "file": "packages/web/public/manifestview.js",
-          "line": 13,
+          "line": 14,
           "symbol": "SORTS",
           "anchor": "the-format"
         },

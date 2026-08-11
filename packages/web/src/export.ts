@@ -62,10 +62,10 @@ async function markIndexStatic(outDir: string): Promise<void> {
   const path = nodePath.join(outDir, 'index.html');
   const html = await fs.readFile(path, 'utf8');
   const marker = '<script>window.__DOCSMIRROR_STATIC__ = true;</script>\n    ';
-  if (!html.includes('<script type="module" src="/app.js">')) {
+  if (!html.includes('<script type="module" src="app.js">')) {
     throw new Error('index.html no longer has the expected app.js script tag; static export needs updating.');
   }
-  await fs.writeFile(path, html.replace('<script type="module" src="/app.js">', `${marker}<script type="module" src="/app.js">`));
+  await fs.writeFile(path, html.replace('<script type="module" src="app.js">', `${marker}<script type="module" src="app.js">`));
 }
 
 /** Walks the docs root and copies every file `/asset` would have served. */

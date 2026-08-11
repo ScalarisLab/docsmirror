@@ -1,3 +1,4 @@
+import { STATIC } from './api.js';
 import { LONG_DOCUMENT_WORDS, renderSurfaceHead } from './docmeta.js';
 import { el } from './dom.js';
 import { hrefFor } from './router.js';
@@ -93,7 +94,13 @@ export function renderHealthView(container, { health, manifest }) {
   container.append(
     el('p', { class: 'surface-note' }, [
       el('span', { class: 'figure is-quiet', text: `${health.scannedFiles.toLocaleString('en')} source files scanned` }),
-      el('a', { class: 'tool', href: '/api/health', target: '_blank', rel: 'noreferrer', text: 'raw JSON' }),
+      el('a', {
+        class: 'tool',
+        href: STATIC ? 'data/health.json' : '/api/health',
+        target: '_blank',
+        rel: 'noreferrer',
+        text: 'raw JSON',
+      }),
     ]),
   );
 

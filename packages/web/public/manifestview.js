@@ -1,3 +1,4 @@
+import { STATIC } from './api.js';
 import { LONG_DOCUMENT_WORDS, renderSurfaceHead } from './docmeta.js';
 import { clear, el, formatDate, formatDateTime } from './dom.js';
 import { hrefFor } from './router.js';
@@ -237,7 +238,13 @@ export function renderManifestView(container, manifest) {
       el('span', { class: 'figure is-quiet', text: manifest.docsRoot }),
       el('span', { class: 'figure is-quiet', text: `format ${manifest.docsmirror}` }),
       el('span', { class: 'figure is-quiet', text: `built ${formatDateTime(manifest.generatedAt)}` }),
-      el('a', { class: 'tool', href: '/api/manifest', target: '_blank', rel: 'noreferrer', text: 'raw JSON' }),
+      el('a', {
+        class: 'tool',
+        href: STATIC ? 'data/manifest.json' : '/api/manifest',
+        target: '_blank',
+        rel: 'noreferrer',
+        text: 'raw JSON',
+      }),
     ]),
     el('div', { class: 'controls' }, [
       el('input', {
