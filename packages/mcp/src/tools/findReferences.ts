@@ -3,7 +3,7 @@
  * @docs convention.md#the-pointer
  */
 
-import type { ManifestReference } from '@docsmirror/core';
+import type { ManifestReference } from '@scalarislab/docsmirror-core';
 import { optionalString, requiredString } from './args';
 import { requireAnchor, requireNode } from './lookup';
 import { asJson, type ToolDefinition } from './types';

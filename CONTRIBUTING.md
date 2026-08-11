@@ -55,7 +55,7 @@ Two rules keep that honest:
 
 ## Adding an editor client
 
-A new client should be a shell that starts `@docsmirror/server` over stdio or IPC and forwards the
+A new client should be a shell that starts `@scalarislab/docsmirror-server` over stdio or IPC and forwards the
 `docsmirror` configuration section. If you find yourself implementing a hover or a diagnostic in a
 client, it belongs in the server instead, where every other editor gets it too.
 

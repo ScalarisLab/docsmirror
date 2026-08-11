@@ -1,4 +1,4 @@
-import { splitLines } from '@docsmirror/core';
+import { splitLines } from '@scalarislab/docsmirror-core';
 import { lazy } from './lazy';
 import type { DocsProject } from './project';
 

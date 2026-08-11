@@ -6,7 +6,7 @@
  * the handful it could have meant instead.
  */
 
-import { closestMatch, type ManifestAnchor, type ManifestNode } from '@docsmirror/core';
+import { closestMatch, type ManifestAnchor, type ManifestNode } from '@scalarislab/docsmirror-core';
 import { ToolFailure } from '../errors';
 import type { ProjectSnapshot } from '../project/ProjectSnapshot';
 

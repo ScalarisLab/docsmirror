@@ -6,7 +6,7 @@
  * @docs server.md#settings
  */
 
-import type { StalenessOptions } from '@docsmirror/core';
+import type { StalenessOptions } from '@scalarislab/docsmirror-core';
 
 export interface DocsMirrorSettings {
   /** Docs root, relative to the workspace folder. Overrides the config file. */

@@ -1,5 +1,5 @@
 {
-  "name": "@docsmirror/web",
+  "name": "@scalarislab/docsmirror-web",
   "version": "0.1.0",
   "description": "Local web app for DocsMirror. Browses, searches, reads, edits and shows the git history of a repository's markdown files.",
   "license": "MIT",
@@ -18,8 +18,8 @@
     "public"
   ],
   "dependencies": {
-    "@docsmirror/core": "^0.1.0",
-    "@docsmirror/history": "^0.1.0",
+    "@scalarislab/docsmirror-core": "^0.1.0",
+    "@scalarislab/docsmirror-history": "^0.1.0",
     "marked": "^15.0.12"
   },
   "scripts": {

@@ -11,24 +11,24 @@ export interface ExportResult {
 }
 
 /**
- * `@docsmirror/web` is the one dependency `check` and `manifest` never touch,
+ * `@scalarislab/docsmirror-web` is the one dependency `check` and `manifest` never touch,
  * a webapp and its markdown renderer, pulled in only for this command.
  * Loading it dynamically, and listing it as optional in `package.json`, means
  * a CI install that runs `npm ci --omit=optional` for `check`/`manifest`
  * never pays for it, while a normal install still gets `export` for free.
  * @docs cli.md#docsmirror-export
  */
-async function loadWeb(): Promise<typeof import('@docsmirror/web')> {
+async function loadWeb(): Promise<typeof import('@scalarislab/docsmirror-web')> {
   try {
-    return await import('@docsmirror/web');
+    return await import('@scalarislab/docsmirror-web');
   } catch (error) {
     const code = (error as NodeJS.ErrnoException).code;
     const missingWeb =
       (code === 'MODULE_NOT_FOUND' || code === 'ERR_MODULE_NOT_FOUND') &&
-      (error as Error).message.includes('@docsmirror/web');
+      (error as Error).message.includes('@scalarislab/docsmirror-web');
     if (missingWeb) {
       throw new Error(
-        '`docsmirror export` needs @docsmirror/web, which is not installed. Run `npm install @docsmirror/web`.',
+        '`docsmirror export` needs @scalarislab/docsmirror-web, which is not installed. Run `npm install @scalarislab/docsmirror-web`.',
       );
     }
     throw error;

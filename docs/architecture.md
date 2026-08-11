@@ -4,12 +4,12 @@
 
 | Package | What it is |
 | --- | --- |
-| `@docsmirror/core` | The convention itself: comment scanning, pointer parsing, heading slugs, section extraction, resolution, validation. Zero runtime dependencies. |
-| `@docsmirror/history` | Reads git history, a repository-level graph of commits touching the docs, a per-note timeline, a diff between revisions. Zero runtime dependencies. |
-| `@docsmirror/server` | The language server: hover, inlay hints, go-to-definition, document links, diagnostics. |
-| `@docsmirror/web` | The local documentation app behind `docsmirror serve`: browse, search, edit and see history. |
-| `@docsmirror/cli` | `docsmirror check`, the anti-rot gate a project wires into its test suite or build, plus `manifest` and `serve`. |
-| `@docsmirror/mcp` | The MCP server: the manifest and the docs, exposed as tools and resources for a coding agent. |
+| `@scalarislab/docsmirror-core` | The convention itself: comment scanning, pointer parsing, heading slugs, section extraction, resolution, validation. Zero runtime dependencies. |
+| `@scalarislab/docsmirror-history` | Reads git history, a repository-level graph of commits touching the docs, a per-note timeline, a diff between revisions. Zero runtime dependencies. |
+| `@scalarislab/docsmirror-server` | The language server: hover, inlay hints, go-to-definition, document links, diagnostics. |
+| `@scalarislab/docsmirror-web` | The local documentation app behind `docsmirror serve`: browse, search, edit and see history. |
+| `@scalarislab/docsmirror-cli` | `docsmirror check`, the anti-rot gate a project wires into its test suite or build, plus `manifest` and `serve`. |
+| `@scalarislab/docsmirror-mcp` | The MCP server: the manifest and the docs, exposed as tools and resources for a coding agent. |
 | `docsmirror-vscode` | A thin VS Code client that launches the server as a child process at build time. It contains no language feature of its own. |
 
 Every surface reads pointers through `core` and nowhere else. That is what makes the CLI and the
@@ -60,7 +60,7 @@ docs package. Such a root implements `read` and `list`, and nothing above it cha
 the CLI and the language server are written against the interface, never against the filesystem.
 
 `write` is optional, and the only member that is: reading is what makes something a docs root at
-all, and a hosted, read-only service is still one. `@docsmirror/web`'s editor is the single caller:
+all, and a hosted, read-only service is still one. `@scalarislab/docsmirror-web`'s editor is the single caller:
 `DocsProject.writeDocument` goes through `root.write`, not through `node:fs`, which is what makes
 editing a property of the root rather than something only `LocalDocsRoot` can do. A root that omits
 `write` simply cannot be edited; nothing above it assumes otherwise.

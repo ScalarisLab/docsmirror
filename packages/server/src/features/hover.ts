@@ -6,7 +6,7 @@
  * @docs server.md#hover
  */
 
-import { closestMatch, renderDatedSections, type PointerResolution } from '@docsmirror/core';
+import { closestMatch, renderDatedSections, type PointerResolution } from '@scalarislab/docsmirror-core';
 import { MarkupKind, type Hover, type Position } from 'vscode-languageserver';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 import { PointerIndex, pointerRange } from '../pointer/PointerIndex';

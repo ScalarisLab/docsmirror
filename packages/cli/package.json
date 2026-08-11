@@ -1,5 +1,5 @@
 {
-  "name": "@docsmirror/cli",
+  "name": "@scalarislab/docsmirror-cli",
   "version": "0.1.0",
   "description": "Command-line interface for DocsMirror. Validates @docs pointers against a project's docs root.",
   "license": "MIT",
@@ -18,10 +18,10 @@
     "src"
   ],
   "dependencies": {
-    "@docsmirror/core": "^0.1.0"
+    "@scalarislab/docsmirror-core": "^0.1.0"
   },
   "optionalDependencies": {
-    "@docsmirror/web": "^0.1.0"
+    "@scalarislab/docsmirror-web": "^0.1.0"
   },
   "scripts": {
     "build": "tsc -b",

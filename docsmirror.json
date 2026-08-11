@@ -1,6 +1,6 @@
 {
   "docsmirror": "1.0",
-  "generatedAt": "2026-08-11T16:35:28.322Z",
+  "generatedAt": "2026-08-11T16:55:21.830Z",
   "docsRoot": "docs",
   "nodes": [
     {
@@ -491,13 +491,13 @@
     {
       "path": "history.md",
       "title": "History",
-      "summary": "@docsmirror/history shows the history of a documentation folder by reading the repository's git history directly, it does not invent a second versioning format inside the documents themselves.",
+      "summary": "@scalarislab/docsmirror-history shows the history of a documentation folder by reading the repository's git history directly, it does not invent a second versioning format inside the documents…",
       "anchors": [
         {
           "slug": "history",
           "title": "History",
           "level": 1,
-          "summary": "@docsmirror/history shows the history of a documentation folder by reading the repository's git history directly, it does not invent a second versioning format inside the documents themselves.",
+          "summary": "@scalarislab/docsmirror-history shows the history of a documentation folder by reading the repository's git history directly, it does not invent a second versioning format inside the documents…",
           "referencedBy": []
         },
         {
@@ -969,20 +969,20 @@
     {
       "path": "server.md",
       "title": "The language server",
-      "summary": "@docsmirror/server is where every editor feature lives.",
+      "summary": "@scalarislab/docsmirror-server is where every editor feature lives.",
       "anchors": [
         {
           "slug": "the-language-server",
           "title": "The language server",
           "level": 1,
-          "summary": "@docsmirror/server is where every editor feature lives.",
+          "summary": "@scalarislab/docsmirror-server is where every editor feature lives.",
           "referencedBy": []
         },
         {
           "slug": "the-server",
           "title": "The server",
           "level": 2,
-          "summary": "@docsmirror/server is where every editor feature lives.",
+          "summary": "@scalarislab/docsmirror-server is where every editor feature lives.",
           "referencedBy": [
             {
               "file": "packages/server/src/server.ts",

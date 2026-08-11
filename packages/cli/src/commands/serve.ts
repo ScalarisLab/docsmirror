@@ -7,16 +7,16 @@ export interface ServeOptions {
 }
 
 /**
- * `@docsmirror/web` is the one dependency `check` and `manifest` never touch
+ * `@scalarislab/docsmirror-web` is the one dependency `check` and `manifest` never touch
  *, a webapp and its markdown renderer, pulled in only for this command.
  * Loading it dynamically, and listing it as optional in `package.json`,
  * means a CI install that runs `npm ci --omit=optional` for `check`/`manifest`
  * never pays for it, while a normal install still gets `serve` for free.
  * @docs cli.md#docsmirror-serve
  */
-async function loadServer(): Promise<typeof import('@docsmirror/web')> {
+async function loadServer(): Promise<typeof import('@scalarislab/docsmirror-web')> {
   try {
-    return await import('@docsmirror/web');
+    return await import('@scalarislab/docsmirror-web');
   } catch (error) {
     // Only a genuinely absent module earns the install hint. A web package
     // that is installed but crashes while loading must surface its own error,
@@ -24,10 +24,10 @@ async function loadServer(): Promise<typeof import('@docsmirror/web')> {
     const code = (error as NodeJS.ErrnoException).code;
     const missingWeb =
       (code === 'MODULE_NOT_FOUND' || code === 'ERR_MODULE_NOT_FOUND') &&
-      (error as Error).message.includes('@docsmirror/web');
+      (error as Error).message.includes('@scalarislab/docsmirror-web');
     if (missingWeb) {
       throw new Error(
-        '`docsmirror serve` needs @docsmirror/web, which is not installed. Run `npm install @docsmirror/web`.',
+        '`docsmirror serve` needs @scalarislab/docsmirror-web, which is not installed. Run `npm install @scalarislab/docsmirror-web`.',
       );
     }
     throw error;

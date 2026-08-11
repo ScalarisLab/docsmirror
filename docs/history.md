@@ -1,13 +1,13 @@
 # History
 
-`@docsmirror/history` shows the history of a documentation folder by reading the repository's
+`@scalarislab/docsmirror-history` shows the history of a documentation folder by reading the repository's
 git history directly, it does not invent a second versioning format inside the documents
 themselves.
 
 ## Reading git, not a new format
 
 Git already records a dated, authored history of every markdown file: who changed it, when, and
-what the previous content was. `@docsmirror/history` has zero runtime dependencies; it shells out
+what the previous content was. `@scalarislab/docsmirror-history` has zero runtime dependencies; it shells out
 to the `git` binary via `node:child_process.execFile` with an explicit argv array, never a shell
 string, so a caller-supplied path or revision can never be interpreted as a flag or injected into
 the command line. Every path and revision argument is validated to reject anything starting with

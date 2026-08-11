@@ -1,4 +1,4 @@
-import type { DocSection } from '@docsmirror/core';
+import type { DocSection } from '@scalarislab/docsmirror-core';
 import type { CorpusDocument, DocsProject } from './project';
 
 /** What the query matched, which is what a reader needs to judge a hit. */

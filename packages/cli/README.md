@@ -1,4 +1,4 @@
-# `@docsmirror/cli`
+# `@scalarislab/docsmirror-cli`
 
 The `docsmirror` command: the anti-rot gate for `@docs` pointers, the generator for the
 documentation manifest, and the local documentation app, from one binary.
@@ -12,13 +12,13 @@ docsmirror serve [projectRoot]      Browse, search and edit the documentation lo
 ## Install
 
 ```bash
-npm install --save-dev @docsmirror/cli
+npm install --save-dev @scalarislab/docsmirror-cli
 ```
 
 Or run it without installing:
 
 ```bash
-npx @docsmirror/cli check
+npx @scalarislab/docsmirror-cli check
 ```
 
 ## Usage

@@ -2,7 +2,7 @@
 
 ## The server
 
-`@docsmirror/server` is where every editor feature lives. One process, spoken to over LSP, serves
+`@scalarislab/docsmirror-server` is where every editor feature lives. One process, spoken to over LSP, serves
 VS Code, JetBrains IDEs, Neovim, Zed, Helix and Emacs alike, the alternative, an extension per
 editor, would mean reimplementing the same hover five times and watching four of them fall behind.
 
@@ -12,7 +12,7 @@ a minimal client never receives a capability it cannot use. Request handlers nev
 returns an empty result and is logged to the client's output channel, because a language server
 that takes the editor down with it is worse than one that shows nothing.
 
-Everything it knows about the convention comes from `@docsmirror/core`. That is deliberate, see
+Everything it knows about the convention comes from `@scalarislab/docsmirror-core`. That is deliberate, see
 [Architecture](architecture.md#packages), and it is why a pointer that fails in CI fails in the
 editor with the identical message.
 
@@ -21,7 +21,7 @@ editor with the identical message.
 The server speaks stdio by default and needs no arguments:
 
 ```bash
-npx --package @docsmirror/server docsmirror-lsp --stdio
+npx --package @scalarislab/docsmirror-server docsmirror-lsp --stdio
 ```
 
 `--stdio` is accepted and ignored, since many clients pass it unconditionally; `--node-ipc` selects

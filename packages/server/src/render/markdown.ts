@@ -9,7 +9,7 @@
  */
 
 import * as nodePath from 'node:path';
-import { splitLines } from '@docsmirror/core';
+import { splitLines } from '@scalarislab/docsmirror-core';
 import { pathToUri } from '../workspace/paths';
 
 const FENCE = /^\s{0,3}(```+|~~~+)/;

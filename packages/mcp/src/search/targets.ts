@@ -5,7 +5,7 @@
  * section that actually answers the query.
  */
 
-import { parseSections, splitLines } from '@docsmirror/core';
+import { parseSections, splitLines } from '@scalarislab/docsmirror-core';
 import type { ProjectSnapshot } from '../project/ProjectSnapshot';
 import type { SearchTarget } from './lexical';
 

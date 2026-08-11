@@ -45,7 +45,7 @@ import { randomBytes } from 'node:crypto';
 import { Marked, type RendererObject, type Tokens } from 'marked';
 import * as vscode from 'vscode';
 import type { LanguageClient } from 'vscode-languageclient/node';
-import { SECTION_REQUEST, type SectionContent } from '@docsmirror/server/dist/protocol';
+import { SECTION_REQUEST, type SectionContent } from '@scalarislab/docsmirror-server/dist/protocol';
 import { markersEnabled } from './markers';
 import type { PointerCache, PointerMarker } from './pointers';
 import { SETTINGS_SECTION } from './settings';
@@ -234,12 +234,12 @@ function escapeHtml(value: string): string {
  * when it is not, or resolves to something that is not a string, prose that
  * should read as a paragraph with a link in it read as the raw markdown
  * instead, `[title](url)`, brackets and all, never turned into anything.
- * `marked` is what `@docsmirror/web` already renders the same convention
+ * `marked` is what `@scalarislab/docsmirror-web` already renders the same convention
  * with, so this is the same dependency, not a new risk, in exchange for a
  * renderer that is guaranteed to run.
  *
  * Raw HTML in the markdown is escaped rather than passed through, matching
- * `@docsmirror/web`'s renderer: this webview runs with scripts enabled, and a
+ * `@scalarislab/docsmirror-web`'s renderer: this webview runs with scripts enabled, and a
  * project's own docs are not something to trust with that.
  */
 
@@ -248,7 +248,7 @@ function escapeHtml(value: string): string {
  * scripts on, `javascript:` above all, and `marked` passes it through, so
  * only schemes that cannot run code survive, plus the in-document `#anchor`
  * the page scrolls to natively. Everything else keeps its text and loses its
- * link, the same treatment `@docsmirror/web` gives a target it will not open.
+ * link, the same treatment `@scalarislab/docsmirror-web` gives a target it will not open.
  */
 const SAFE_LINK = /^(?:https?:|mailto:|#)/i;
 

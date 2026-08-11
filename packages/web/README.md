@@ -1,4 +1,4 @@
-# `@docsmirror/web`
+# `@scalarislab/docsmirror-web`
 
 A local application for reading and writing a repository's documentation: browse it, search it,
 edit it, and see how it changed over time. It reads and writes the real markdown files in your
@@ -10,19 +10,19 @@ and is not something to expose. Documentation lives in the repository and is rev
 ## Install
 
 ```bash
-npm install --save-dev @docsmirror/web
+npm install --save-dev @scalarislab/docsmirror-web
 ```
 
-Or run it without installing, through [`@docsmirror/cli`](https://github.com/ScalarisLab/docsmirror/tree/main/packages/cli):
+Or run it without installing, through [`@scalarislab/docsmirror-cli`](https://github.com/ScalarisLab/docsmirror/tree/main/packages/cli):
 
 ```bash
-npx @docsmirror/cli serve
+npx @scalarislab/docsmirror-cli serve
 ```
 
 ## Usage
 
 ```bash
-npx --package @docsmirror/web docsmirror-serve [project-root] [--port <number>] [--open]
+npx --package @scalarislab/docsmirror-web docsmirror-serve [project-root] [--port <number>] [--open]
 ```
 
 The project root defaults to the current working directory. The page is a corpus sidebar on the

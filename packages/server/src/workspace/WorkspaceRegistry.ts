@@ -5,7 +5,7 @@
  */
 
 import * as nodePath from 'node:path';
-import { CONFIG_FILE_NAME, DEFAULT_CONFIG } from '@docsmirror/core';
+import { CONFIG_FILE_NAME, DEFAULT_CONFIG } from '@scalarislab/docsmirror-core';
 import type { DocsMirrorSettings } from '../settings';
 import { contains, uriToPath } from './paths';
 import { ProjectRootFinder } from './projectRoot';

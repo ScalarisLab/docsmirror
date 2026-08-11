@@ -7,7 +7,7 @@
  * @docs server.md#pointer-index
  */
 
-import { parseSource, type DocsPointer, type ParseResult } from '@docsmirror/core';
+import { parseSource, type DocsPointer, type ParseResult } from '@scalarislab/docsmirror-core';
 import { Range, type Position } from 'vscode-languageserver';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 

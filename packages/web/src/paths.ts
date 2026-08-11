@@ -1,5 +1,5 @@
 import * as nodePath from 'node:path';
-import { normalizeDocsPath, type LocalDocsRoot } from '@docsmirror/core';
+import { normalizeDocsPath, type LocalDocsRoot } from '@scalarislab/docsmirror-core';
 
 /** Extensions the app is willing to read or write. Anything else is refused. */
 const WRITABLE_EXTENSIONS = ['.md', '.markdown'] as const;

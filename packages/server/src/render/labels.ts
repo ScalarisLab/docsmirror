@@ -4,7 +4,7 @@
  * @docs server.md#labels
  */
 
-import { formatDate, type DocFile, type Staleness } from '@docsmirror/core';
+import { formatDate, type DocFile, type Staleness } from '@scalarislab/docsmirror-core';
 import type { Workspace } from '../workspace/Workspace';
 import { relativePosix } from '../workspace/paths';
 

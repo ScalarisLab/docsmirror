@@ -1,7 +1,7 @@
 /**
  * The DocsMirror language server.
  *
- * Every feature reads pointers through `@docsmirror/core`, so an editor, the
+ * Every feature reads pointers through `@scalarislab/docsmirror-core`, so an editor, the
  * CLI and a CI run see the same convention and report the same problems. This
  * module is only wiring: protocol in, feature calls out.
  * @docs server.md#the-server
@@ -21,7 +21,7 @@ import {
   type ServerCapabilities,
 } from 'vscode-languageserver/node';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { CONFIG_FILE_NAME } from '@docsmirror/core';
+import { CONFIG_FILE_NAME } from '@scalarislab/docsmirror-core';
 import { diagnosticsFor } from './features/diagnostics';
 import { definitionAt } from './features/definition';
 import { documentLinksFor } from './features/documentLink';

@@ -4,10 +4,10 @@ Four commands: `check`, the anti-rot gate; `manifest`, which generates the docum
 `serve`, the local reading and editing app; and `export`, a static, read-only copy of it.
 
 ```bash
-npx @docsmirror/cli check
-npx @docsmirror/cli manifest
-npx @docsmirror/cli serve
-npx @docsmirror/cli export
+npx @scalarislab/docsmirror-cli check
+npx @scalarislab/docsmirror-cli manifest
+npx @scalarislab/docsmirror-cli serve
+npx @scalarislab/docsmirror-cli export
 ```
 
 ## `docsmirror check`
@@ -126,14 +126,14 @@ or not at all.
 
 Starts the local documentation app described in [The web app](web.md). `check` and `manifest` are
 the two commands a CI pipeline runs; `serve` is the one a person runs, and it is the only command
-that pulls in `@docsmirror/web`, a small webapp and the markdown renderer it draws pages with,
+that pulls in `@scalarislab/docsmirror-web`, a small webapp and the markdown renderer it draws pages with,
 neither of which `check` or `manifest` ever touch.
 
-That dependency is declared as **optional** in `@docsmirror/cli`'s `package.json` for exactly that
+That dependency is declared as **optional** in `@scalarislab/docsmirror-cli`'s `package.json` for exactly that
 reason, and loaded dynamically rather than imported at the top of the file. A plain `npm install`
 still gets it, so `serve` works out of the box; a CI image built only to run `check`/`manifest` can
 run `npm ci --omit=optional` and skip it entirely. Running `serve` without it installed fails with
-one line telling you to `npm install @docsmirror/web`, not a stack trace.
+one line telling you to `npm install @scalarislab/docsmirror-web`, not a stack trace.
 
 ## `docsmirror export`
 
@@ -147,5 +147,5 @@ from JSON baked in at export time instead of a live server, ready to host anywhe
 plain files, GitHub Pages included. Details, including exactly what does and does not carry over
 from the live app: [Static export](web.md#static-export).
 
-Like `serve`, this is the one command besides it that pulls in `@docsmirror/web`, dynamically and
+Like `serve`, this is the one command besides it that pulls in `@scalarislab/docsmirror-web`, dynamically and
 optionally for the same reason.

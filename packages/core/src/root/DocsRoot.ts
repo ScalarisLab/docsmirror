@@ -30,7 +30,7 @@ export interface DocsRoot {
    * Writes a document, creating it and any parent directories it needs.
    * Optional: a root has to support reading to be a docs root at all, but not
    * every one can be written to, a hosted, read-only service is still a
-   * legitimate `DocsRoot`. `@docsmirror/web`'s editor is the one surface that
+   * legitimate `DocsRoot`. `@scalarislab/docsmirror-web`'s editor is the one surface that
    * calls this; every other surface only ever reads.
    */
   write?(path: string, content: string): Promise<void>;

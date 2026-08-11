@@ -7,7 +7,7 @@ import {
   resolveSources,
   type ResolvedSource,
   type ValidationIssue,
-} from '@docsmirror/core';
+} from '@scalarislab/docsmirror-core';
 import { loadProject, ProjectError, type LoadedProject } from '../project';
 import { generateManifest } from './manifest';
 import { formatHuman } from '../report/human';

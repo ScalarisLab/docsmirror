@@ -117,7 +117,7 @@ there, and everything falls back to the peek view when it is not. Nothing is eve
 source file to fake the effect: duplicating documentation into code is the exact thing this tool
 exists to stop. The feature was verified working on VS Code 1.131.
 
-The content is rendered with `marked`, the same renderer `@docsmirror/web` uses for the same
+The content is rendered with `marked`, the same renderer `@scalarislab/docsmirror-web` uses for the same
 convention, with the same raw-HTML-is-escaped rule, since this webview runs with scripts enabled and
 a project's own docs are not something to trust with that. An earlier version asked the editor's own
 markdown extension to do this, through an internal command (`markdown.api.render`) with no
@@ -136,7 +136,7 @@ that. A Content-Security-Policy loads nothing by default; the one inline script 
 minted per page; images load only from the webview's own resource scheme, `https:` and `data:`.
 Link targets are allowlisted at render time: `http(s)`, `mailto` and in-document anchors keep their
 link, and anything else, `javascript:` above all, which `marked` passes through untouched, keeps
-its words and loses its href, the same treatment `@docsmirror/web` gives a target it will not open.
+its words and loses its href, the same treatment `@scalarislab/docsmirror-web` gives a target it will not open.
 
 Images the server absolutized to `file:` URIs are rewritten through `asWebviewUri` when the widget
 is built, with the workspace folders as the resource roots, because a webview refuses `file:`

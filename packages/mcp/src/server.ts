@@ -2,7 +2,7 @@
  * The Model Context Protocol surface: tools an agent calls, and documents it
  * can attach as resources.
  *
- * This module is wiring only. Every answer comes from `@docsmirror/core`
+ * This module is wiring only. Every answer comes from `@scalarislab/docsmirror-core`
  * through a project snapshot, so an agent, an editor and a CI run describe the
  * same documentation surface.
  * @docs agents.md#working-with-ai-agents

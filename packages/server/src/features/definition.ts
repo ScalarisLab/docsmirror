@@ -4,7 +4,7 @@
  * @docs server.md#definition
  */
 
-import { splitLines, type ResolvedPointer } from '@docsmirror/core';
+import { splitLines, type ResolvedPointer } from '@scalarislab/docsmirror-core';
 import { Range, type Location, type LocationLink, type Position } from 'vscode-languageserver';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 import { PointerIndex, pointerRange } from '../pointer/PointerIndex';

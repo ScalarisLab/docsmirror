@@ -1,5 +1,5 @@
 {
-  "name": "@docsmirror/core",
+  "name": "@scalarislab/docsmirror-core",
   "version": "0.1.0",
   "description": "Parses, resolves and validates @docs pointers. The single source of truth for the DocsMirror convention.",
   "license": "MIT",

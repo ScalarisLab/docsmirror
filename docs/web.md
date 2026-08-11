@@ -304,7 +304,7 @@ versioning format inside the documents. Details of the reading itself are in
 Two views, deliberately different shapes:
 
 - A **repository-level graph** of commits touching the docs root, branches, merges, author, date,
-  drawn from the lanes `@docsmirror/history` computes.
+  drawn from the lanes `@scalarislab/docsmirror-history` computes.
 - A **linear timeline per note**, because one file's history is almost always a straight line, and
   drawing a graph for a straight line is decoration.
 

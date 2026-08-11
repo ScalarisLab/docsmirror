@@ -18,7 +18,7 @@ import {
   type OpenedProject,
   type SourceDocument,
   type ValidationIssue,
-} from '@docsmirror/core';
+} from '@scalarislab/docsmirror-core';
 import { CorpusTerms, type Emphasis } from './corpus';
 import { lazy } from './lazy';
 import { renderMarkdown } from './markdown';

@@ -16,9 +16,9 @@
 
 import type * as vscode from 'vscode';
 import type { LanguageClient } from 'vscode-languageclient/node';
-import { POINTERS_REQUEST, type PointerMarkersResult } from '@docsmirror/server/dist/protocol';
+import { POINTERS_REQUEST, type PointerMarkersResult } from '@scalarislab/docsmirror-server/dist/protocol';
 
-export type { PointerMarker, PointerMarkersResult, ProtocolRange } from '@docsmirror/server/dist/protocol';
+export type { PointerMarker, PointerMarkersResult, ProtocolRange } from '@scalarislab/docsmirror-server/dist/protocol';
 
 interface InFlight {
   /** The document version the request was issued for. */

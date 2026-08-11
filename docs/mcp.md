@@ -2,10 +2,10 @@
 
 The [manifest](manifest.md) is what an agent needs; MCP is how it actually gets it. The language
 server serves a human's editor, the MCP server serves a coding agent, and both read the same
-`@docsmirror/core`, so the map an agent sees is the map CI validates.
+`@scalarislab/docsmirror-core`, so the map an agent sees is the map CI validates.
 
 ```bash
-npx --package @docsmirror/mcp docsmirror-mcp
+npx --package @scalarislab/docsmirror-mcp docsmirror-mcp
 ```
 
 It speaks stdio and takes an optional project root, defaulting to the working directory.

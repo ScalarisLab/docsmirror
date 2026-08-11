@@ -1,4 +1,4 @@
-# `@docsmirror/core`
+# `@scalarislab/docsmirror-core`
 
 The single source of truth for the `@docs` convention: parsing pointers out of source comments,
 resolving them against a docs root, validating a whole project, and building the manifest. Every
@@ -8,20 +8,20 @@ pointer means.
 
 Zero runtime dependencies.
 
-Most projects never install this directly, `@docsmirror/cli` pulls it in for `docsmirror check`
+Most projects never install this directly, `@scalarislab/docsmirror-cli` pulls it in for `docsmirror check`
 and `docsmirror manifest`. Install it yourself when you are building a new surface on top of the
 convention (an editor client, a bot, a custom report).
 
 ## Install
 
 ```bash
-npm install @docsmirror/core
+npm install @scalarislab/docsmirror-core
 ```
 
 ## Usage
 
 ```ts
-import { DocsResolver, LocalDocsRoot, parseSource, validateProject } from '@docsmirror/core';
+import { DocsResolver, LocalDocsRoot, parseSource, validateProject } from '@scalarislab/docsmirror-core';
 
 const root = new LocalDocsRoot('docs');
 const resolver = new DocsResolver(root);

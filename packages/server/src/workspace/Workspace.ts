@@ -6,7 +6,7 @@
 
 import { promises as fs } from 'node:fs';
 import * as nodePath from 'node:path';
-import { DocsResolver, LocalDocsRoot, loadConfig, matchesAny, type DocsMirrorConfig } from '@docsmirror/core';
+import { DocsResolver, LocalDocsRoot, loadConfig, matchesAny, type DocsMirrorConfig } from '@scalarislab/docsmirror-core';
 import type { DocsMirrorSettings } from '../settings';
 import { relativePosix } from './paths';
 

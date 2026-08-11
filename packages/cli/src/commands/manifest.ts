@@ -8,7 +8,7 @@ import {
   type DocsManifest,
   type ResolvedSource,
   type ValidationIssue,
-} from '@docsmirror/core';
+} from '@scalarislab/docsmirror-core';
 import { loadProject, ProjectError, type LoadedProject } from '../project';
 import { pluralize } from '../report/human';
 

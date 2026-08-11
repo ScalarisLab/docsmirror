@@ -1,8 +1,8 @@
-# `@docsmirror/history`
+# `@scalarislab/docsmirror-history`
 
 Reads a documentation folder's history straight from git, no bespoke versioning format invented
 inside the documents themselves. Powers the history views in
-[`@docsmirror/web`](https://github.com/ScalarisLab/docsmirror/tree/main/packages/web).
+[`@scalarislab/docsmirror-web`](https://github.com/ScalarisLab/docsmirror/tree/main/packages/web).
 
 Zero runtime dependencies: it shells out to the `git` binary with an explicit argv array, never a
 shell string, so a caller-supplied path or revision can never be interpreted as a flag or injected
@@ -11,13 +11,13 @@ into the command line.
 ## Install
 
 ```bash
-npm install @docsmirror/history
+npm install @scalarislab/docsmirror-history
 ```
 
 ## Usage
 
 ```ts
-import { GitHistory, WORKTREE } from '@docsmirror/history';
+import { GitHistory, WORKTREE } from '@scalarislab/docsmirror-history';
 
 const history = new GitHistory('/path/to/repository');
 
@@ -33,7 +33,7 @@ lane; `fileTimeline()` follows one file across renames; `readAtRevision()` reads
 at a given revision (or `WORKTREE`, the current on-disk state); `diff()` parses real unified diff
 output into structured hunks and lines. When there is no repository, no `git` binary, or no
 commits, `repositoryGraph()` and `fileTimeline()` reject, the package exposes `isAvailable()` so
-a caller can check once and degrade gracefully, the way `@docsmirror/web`'s `HistoryService` does.
+a caller can check once and degrade gracefully, the way `@scalarislab/docsmirror-web`'s `HistoryService` does.
 
 ## Learn more
 

@@ -13,7 +13,7 @@
  * @docs server.md#the-section-request
  */
 
-import { renderDatedSections } from '@docsmirror/core';
+import { renderDatedSections } from '@scalarislab/docsmirror-core';
 import type { Position } from 'vscode-languageserver';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 import type { SectionContent } from '../protocol';

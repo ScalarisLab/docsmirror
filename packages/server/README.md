@@ -1,11 +1,11 @@
-# `@docsmirror/server`
+# `@scalarislab/docsmirror-server`
 
 The DocsMirror language server: hover, inlay hints, diagnostics, go-to-definition and document
 links for `@docs` pointers, in one process spoken to over LSP. Every editor that speaks the
 protocol gets the same five features from the same server, VS Code, JetBrains IDEs, Neovim, Zed,
 Helix, Emacs, instead of one reimplementation per client.
 
-Everything it knows about the convention comes from [`@docsmirror/core`](https://github.com/ScalarisLab/docsmirror/tree/main/packages/core),
+Everything it knows about the convention comes from [`@scalarislab/docsmirror-core`](https://github.com/ScalarisLab/docsmirror/tree/main/packages/core),
 which is why a pointer that fails `docsmirror check` in CI fails in the editor with the identical
 message.
 
@@ -14,7 +14,7 @@ message.
 Most editor clients spawn it directly and never need it installed as a project dependency:
 
 ```bash
-npx --package @docsmirror/server docsmirror-lsp --stdio
+npx --package @scalarislab/docsmirror-server docsmirror-lsp --stdio
 ```
 
 ## Usage

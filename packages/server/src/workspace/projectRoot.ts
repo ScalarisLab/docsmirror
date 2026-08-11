@@ -16,7 +16,7 @@
 
 import { promises as fs } from 'node:fs';
 import * as nodePath from 'node:path';
-import { CONFIG_FILE_NAME } from '@docsmirror/core';
+import { CONFIG_FILE_NAME } from '@scalarislab/docsmirror-core';
 import { contains } from './paths';
 
 /**

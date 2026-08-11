@@ -113,7 +113,7 @@
     "marked": "^15.0.12"
   },
   "devDependencies": {
-    "@docsmirror/server": "^0.1.0",
+    "@scalarislab/docsmirror-server": "^0.1.0",
     "@types/vscode": "^1.85.0",
     "esbuild": "^0.28.1",
     "vscode-languageclient": "^9.0.1"

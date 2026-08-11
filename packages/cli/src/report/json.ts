@@ -1,4 +1,4 @@
-import type { ValidationIssue } from '@docsmirror/core';
+import type { ValidationIssue } from '@scalarislab/docsmirror-core';
 
 export interface ReportSummary {
   readonly scannedFiles: number;

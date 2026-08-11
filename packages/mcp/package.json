@@ -1,5 +1,5 @@
 {
-  "name": "@docsmirror/mcp",
+  "name": "@scalarislab/docsmirror-mcp",
   "version": "0.1.0",
   "description": "Model Context Protocol server for DocsMirror. Serves a project's documentation map, what exists, what it covers, and which code depends on it, to coding agents.",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "src"
   ],
   "dependencies": {
-    "@docsmirror/core": "^0.1.0",
+    "@scalarislab/docsmirror-core": "^0.1.0",
     "@modelcontextprotocol/sdk": "^1.30.0"
   },
   "scripts": {

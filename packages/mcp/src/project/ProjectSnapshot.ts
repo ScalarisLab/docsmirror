@@ -13,7 +13,7 @@ import {
   type LocalDocsRoot,
   type ManifestAnchor,
   type ManifestNode,
-} from '@docsmirror/core';
+} from '@scalarislab/docsmirror-core';
 
 export class ProjectSnapshot {
   private readonly byPath: ReadonlyMap<string, ManifestNode>;

@@ -11,7 +11,7 @@
 import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import * as nodePath from 'node:path';
-import { matchesAny, type DocsMirrorConfig } from '@docsmirror/core';
+import { matchesAny, type DocsMirrorConfig } from '@scalarislab/docsmirror-core';
 
 /** Extensions `LocalDocsRoot` serves, and therefore the ones worth watching. */
 const DOC_EXTENSIONS = ['.md', '.markdown'];

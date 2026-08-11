@@ -1,5 +1,5 @@
 {
-  "name": "@docsmirror/history",
+  "name": "@scalarislab/docsmirror-history",
   "version": "0.1.0",
   "description": "Reads a documentation folder's history straight from git: commit graph, per-file timelines, and diffs.",
   "license": "MIT",

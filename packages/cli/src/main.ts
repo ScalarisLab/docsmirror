@@ -1,4 +1,4 @@
-import { MANIFEST_FILE_NAME } from '@docsmirror/core';
+import { MANIFEST_FILE_NAME } from '@scalarislab/docsmirror-core';
 import { runCheck, type CheckOptions } from './commands/check';
 import { runExport, type ExportOptions } from './commands/export';
 import { runManifest, type ManifestOptions } from './commands/manifest';
@@ -104,7 +104,7 @@ Options:
 
 Exit codes:
   0   written
-  2   usage error (bad flag, missing docs root, @docsmirror/web not installed)
+  2   usage error (bad flag, missing docs root, @scalarislab/docsmirror-web not installed)
 `;
 
 /** Flags shared by every command that scans a project. */

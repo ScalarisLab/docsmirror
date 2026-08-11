@@ -8,7 +8,7 @@
  * @docs server.md#diagnostics
  */
 
-import { CONFIG_FILE_NAME, validateSource, type IssueSeverity, type ValidationIssue } from '@docsmirror/core';
+import { CONFIG_FILE_NAME, validateSource, type IssueSeverity, type ValidationIssue } from '@scalarislab/docsmirror-core';
 import { DiagnosticSeverity, Range, type Diagnostic } from 'vscode-languageserver';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 import type { Workspace } from '../workspace/Workspace';

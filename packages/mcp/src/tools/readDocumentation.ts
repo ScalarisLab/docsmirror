@@ -3,7 +3,7 @@
  * @docs convention.md#anchors
  */
 
-import { findSection, parseSections, sectionMarkdown } from '@docsmirror/core';
+import { findSection, parseSections, sectionMarkdown } from '@scalarislab/docsmirror-core';
 import { ToolFailure } from '../errors';
 import { optionalString, requiredString } from './args';
 import { requireAnchor, requireNode } from './lookup';

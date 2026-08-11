@@ -7,7 +7,7 @@ import {
   type DocsResolver,
   type LocalDocsRoot,
   type SourceDocument,
-} from '@docsmirror/core';
+} from '@scalarislab/docsmirror-core';
 
 /** Command-line overrides that change how a project is read. */
 export interface ProjectOverrides {

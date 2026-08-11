@@ -81,14 +81,14 @@ Details: [docs/manifest.md](docs/manifest.md).
 3. **Wire the check into CI**, so the pointer cannot rot:
 
    ```bash
-   npx @docsmirror/cli check
+   npx @scalarislab/docsmirror-cli check
    ```
 
    ```json
    { "scripts": { "test": "docsmirror check && <your tests>" } }
    ```
 
-   Generate the map at the same time with `npx @docsmirror/cli manifest`, and commit
+   Generate the map at the same time with `npx @scalarislab/docsmirror-cli manifest`, and commit
    `docsmirror.json`; `check` then fails whenever it drifts from the documentation.
 
 4. **Install the editor integration** (below), so writing a pointer pays off immediately.
@@ -171,7 +171,7 @@ marker, and expanding that marker into a peek.
 Point your client at the server binary: it speaks stdio and needs no arguments.
 
 ```bash
-npx --package @docsmirror/server docsmirror-lsp --stdio
+npx --package @scalarislab/docsmirror-server docsmirror-lsp --stdio
 ```
 
 Attach it to all file types (the convention is language-agnostic) and send your settings under the
@@ -183,7 +183,7 @@ settings schema.
 The manifest is what an agent needs; MCP is how it gets it.
 
 ```bash
-npx --package @docsmirror/mcp docsmirror-mcp
+npx --package @scalarislab/docsmirror-mcp docsmirror-mcp
 ```
 
 Five tools: `list_documentation` to discover, `search_documentation` to find,
@@ -198,7 +198,7 @@ manifest first and to leave a pointer instead of a long comment.
 ## Reading and writing documentation locally
 
 ```bash
-npx @docsmirror/cli serve
+npx @scalarislab/docsmirror-cli serve
 ```
 
 A local app to browse, search, **edit** and see the history of the repository's markdown. It reads
@@ -224,12 +224,12 @@ own documentation that way, on every push to `main`; see
 
 | Package | What it is |
 | --- | --- |
-| [`@docsmirror/core`](packages/core) | The convention itself: parsing, resolution, validation, and the manifest. Zero runtime dependencies. |
-| [`@docsmirror/cli`](packages/cli) | `docsmirror check`, `manifest`, `serve`, `export`. |
-| [`@docsmirror/server`](packages/server) | The language server. |
-| [`@docsmirror/mcp`](packages/mcp) | The MCP server, for coding agents. |
-| [`@docsmirror/web`](packages/web) | The local documentation app. |
-| [`@docsmirror/history`](packages/history) | Reads git history. Zero runtime dependencies. |
+| [`@scalarislab/docsmirror-core`](packages/core) | The convention itself: parsing, resolution, validation, and the manifest. Zero runtime dependencies. |
+| [`@scalarislab/docsmirror-cli`](packages/cli) | `docsmirror check`, `manifest`, `serve`, `export`. |
+| [`@scalarislab/docsmirror-server`](packages/server) | The language server. |
+| [`@scalarislab/docsmirror-mcp`](packages/mcp) | The MCP server, for coding agents. |
+| [`@scalarislab/docsmirror-web`](packages/web) | The local documentation app. |
+| [`@scalarislab/docsmirror-history`](packages/history) | Reads git history. Zero runtime dependencies. |
 | [`docsmirror-vscode`](packages/vscode) | A thin VS Code client. |
 
 Every surface reads pointers through `core`, which is why the editor and CI can never disagree

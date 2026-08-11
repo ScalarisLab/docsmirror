@@ -1,4 +1,4 @@
-import { normalizeDocsPath, SlugRegistry } from '@docsmirror/core';
+import { normalizeDocsPath, SlugRegistry } from '@scalarislab/docsmirror-core';
 import { Marked, type RendererObject, type Tokens } from 'marked';
 
 const ABSOLUTE_URL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|\/)/i;

@@ -16,7 +16,7 @@ import {
   scanOptionsFrom,
   scanSources,
   type OpenedProject,
-} from '@docsmirror/core';
+} from '@scalarislab/docsmirror-core';
 import { ToolFailure } from '../errors';
 import { fingerprintProject } from './fingerprint';
 import { ProjectSnapshot } from './ProjectSnapshot';

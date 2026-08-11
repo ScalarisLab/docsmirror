@@ -1,4 +1,4 @@
-import { GitHistory, type FileDiff, type FileRevision, type RepositoryGraph } from '@docsmirror/history';
+import { GitHistory, type FileDiff, type FileRevision, type RepositoryGraph } from '@scalarislab/docsmirror-history';
 import type { DocsProject } from './project';
 
 /** What every history endpoint answers when the project is not a git repository. */

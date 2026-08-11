@@ -27,7 +27,7 @@ without every mention becoming a broken pointer.
 
 `@docs` is not a JSDoc, TSDoc or Doxygen tag, and is not read as one by anything that understands
 those, it is a marker this project owns, matched only when followed by whitespace or the end of
-the line, so `@docsmirror/core` a few words later never trips it. It sits comfortably beside real
+the line, so `@scalarislab/docsmirror-core` a few words later never trips it. It sits comfortably beside real
 `@param`/`@returns` tags in the same block comment for exactly that reason.
 
 A pointer is written inside a comment, in any language:
@@ -79,7 +79,7 @@ Every step of that rule has been got wrong in the wild, so each one is worth sta
 | `Sitemap <lastmod> as evidence` | `#sitemap-lastmod-as-evidence` | **Angle brackets are punctuation, not markup.** Stripping `<lastmod>` as an HTML tag deletes the word the heading is about. |
 | `How a surface in m² is recognised` | `#how-a-surface-in-m-is-recognised` | **A digit means a decimal digit.** `²` is a number to Unicode but not a digit, and GitHub drops it. |
 
-`slugify` in `@docsmirror/core` is the single implementation of this rule; every surface, the CLI,
+`slugify` in `@scalarislab/docsmirror-core` is the single implementation of this rule; every surface, the CLI,
 the language server, the MCP server, the manifest, calls it rather than rolling its own. The rule
 is pinned by a table-driven test whose rows are the failures above, because a checker that reports
 a correct pointer as broken is worse than no checker at all.
@@ -129,7 +129,7 @@ enough to be worth dating rather than silently rewritten over.
 
 Every surface that renders a section's prose, the editor hover, the inline view, the local web
 app's reader, turns each marker into a visible label, `**As of 2026-01-15**`, set off from what
-came before it by a rule, through the same function in `@docsmirror/core`. A document with no marker
+came before it by a rule, through the same function in `@scalarislab/docsmirror-core`. A document with no marker
 is unaffected. Viewed anywhere else, GitHub, a teammate's editor without DocsMirror, any plain
 markdown renderer, the marker is what it already is, an HTML comment, which is to say nothing at
 all: the convention degrades to invisible rather than to broken.

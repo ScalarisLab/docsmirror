@@ -3,7 +3,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-const { parseSections, slugify, SlugRegistry } = require('@docsmirror/core');
+const { parseSections, slugify, SlugRegistry } = require('@scalarislab/docsmirror-core');
 const { renderMarkdown } = require('../dist/markdown.js');
 
 /**

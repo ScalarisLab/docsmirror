@@ -5,7 +5,7 @@ import { el } from './dom.js';
  * markdown, or as a reference an AI agent can act on.
  */
 
-/** The same split `@docsmirror/core` uses, so section line offsets line up exactly. */
+/** The same split `@scalarislab/docsmirror-core` uses, so section line offsets line up exactly. */
 function splitLines(text) {
   return text.split(/\r\n|\n|\r/);
 }
