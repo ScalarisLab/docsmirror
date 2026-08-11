@@ -1,6 +1,6 @@
 {
   "docsmirror": "1.0",
-  "generatedAt": "2026-08-11T16:55:21.830Z",
+  "generatedAt": "2026-08-11T17:31:11.011Z",
   "docsRoot": "docs",
   "nodes": [
     {
@@ -707,7 +707,7 @@
           "referencedBy": [
             {
               "file": "packages/core/src/manifest/build.ts",
-              "line": 96,
+              "line": 109,
               "symbol": "buildManifest",
               "anchor": "the-format"
             },
@@ -830,7 +830,7 @@
         },
         {
           "file": "packages/core/src/manifest/build.ts",
-          "line": 96,
+          "line": 109,
           "symbol": "buildManifest",
           "anchor": "the-format"
         },

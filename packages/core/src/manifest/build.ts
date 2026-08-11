@@ -54,10 +54,19 @@ function countWords(markdown: string): number {
   return markdown.match(WORD)?.length ?? 0;
 }
 
+/** Reading order: the file a reference lives in, then where in that file. */
+function byFileThenLine(left: ManifestReference, right: ManifestReference): number {
+  return left.file.localeCompare(right.file) || left.line - right.line;
+}
+
 /**
  * Every pointer of every source, already resolved, grouped by the document it
  * reaches. A pointer whose anchor did not resolve still counts: the document
  * is genuinely referenced, just at a heading that no longer exists.
+ *
+ * Sorted once here rather than left in scan order: `scanSources` walks the
+ * filesystem, and directory read order is not the same on every platform, so
+ * an unsorted list would make the manifest depend on which OS built it.
  */
 function collectReferences(resolvedSources: readonly ResolvedSource[]): Map<string, ManifestReference[]> {
   const byDocument = new Map<string, ManifestReference[]>();
@@ -85,6 +94,10 @@ function collectReferences(resolvedSources: readonly ResolvedSource[]): Map<stri
         existing.push(reference);
       }
     }
+  }
+
+  for (const references of byDocument.values()) {
+    references.sort(byFileThenLine);
   }
 
   return byDocument;
