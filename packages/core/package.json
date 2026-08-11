@@ -16,7 +16,7 @@
     "build": "tsc -b",
     "typecheck": "tsc -b --pretty",
     "pretest": "npm run build",
-    "test": "node --test test/*.test.js"
+    "test": "node --test"
   },
   "engines": {
     "node": ">=18"
