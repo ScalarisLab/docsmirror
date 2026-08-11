@@ -1,0 +1,41 @@
+{
+  "name": "@docsmirror/core",
+  "version": "0.1.0",
+  "description": "Parses, resolves and validates @docs pointers. The single source of truth for the DocsMirror convention.",
+  "license": "MIT",
+  "author": "DocsMirror contributors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "docs",
+    "documentation",
+    "comments",
+    "pointer",
+    "markdown",
+    "anchor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme"
+}

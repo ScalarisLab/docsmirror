@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: build, typecheck, test, check
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: ['18.x', '20.x', '22.x']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Check docs (docsmirror self-dogfooding)
+        run: npm run check
+
+  minimal-install:
+    name: check without optional dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      # A CI image built only to run check/manifest skips @docsmirror/web;
+      # this job proves the CLI stays whole without it.
+      - name: Install without optional dependencies
+        run: npm ci --omit=optional
+
+      - name: Build
+        run: npm run build
+
+      - name: Check docs
+        run: npm run check

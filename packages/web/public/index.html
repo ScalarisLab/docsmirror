@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>DocsMirror</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="spread">
+      <nav class="sidebar" id="sidebar" aria-label="The corpus">
+        <div class="sidebar-search" id="search-slot"></div>
+        <button
+          type="button"
+          class="sidebar-toggle"
+          id="sidebar-toggle"
+          aria-expanded="false"
+          aria-controls="tree sidebar-foot"
+        ></button>
+        <div class="corpus" id="tree" role="tree" aria-label="Documents"></div>
+        <div class="sidebar-foot" id="sidebar-foot"></div>
+      </nav>
+
+      <div class="sheet">
+        <header class="masthead" id="masthead">
+          <div class="masthead-fixed">
+            <div class="folio" id="folio"></div>
+            <p class="masthead-ref" id="masthead-ref"></p>
+          </div>
+          <div class="masthead-title" id="masthead-title"></div>
+        </header>
+        <main class="column" id="column"></main>
+        <footer class="column colophon" id="colophon"></footer>
+      </div>
+    </div>
+
+    <p class="offscreen" id="announcer" role="status" aria-live="polite"></p>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

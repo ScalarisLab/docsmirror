@@ -1,0 +1,2203 @@
+/*
+ * DocsMirror, there is no application frame, only the page.
+ *
+ * Every element on screen either belongs to the document's composition or does
+ * not exist. There is no chrome bar, no panel, no card, no elevation and no
+ * region lighter or darker than the paper: one flat background per theme, ruled
+ * horizontally where a rule carries meaning, and never vertically.
+ *
+ * Monospace appears inside code and nowhere else. Every path, anchor, count,
+ * line number and date is set in the text face and told apart by weight, size,
+ * letter-spacing, colour and tabular figures, because a count is a number in a
+ * sentence, not a terminal.
+ *
+ * The accent is rationed to values the pointer index produced. If it is
+ * coloured, some code is looking at it.
+ * @docs web.md#the-composition
+ */
+
+/* --------------------------------------------------------------- the faces -- */
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/plex-mono-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/plex-mono-500.woff2') format('woff2');
+}
+
+/* -------------------------------------------------------------- the tokens -- */
+
+:root {
+  --paper: #efeee7;
+  --ink: #1c1d1b;
+  --ink-soft: #56574e;
+  --ink-faint: #8f8d82;
+  --rule: #dbd8cb;
+  --rule-strong: #b7b4a3;
+  --pointer: #2f3c96;
+  --warn: #a3371c;
+  --wash: rgba(28, 29, 27, 0.05);
+
+  --lane-0: #2f3c96;
+  --lane-1: #6b6250;
+  --lane-2: #3d7068;
+  --lane-3: #8a5330;
+
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /*
+   * The corpus column on the left, then the sheet, which takes every pixel
+   * that is left. The reading measure is not a number here: it is what remains
+   * between the contents pinned down the left of the prose and the figures
+   * floated into its right, the way a page with marginalia is measured.
+   */
+  --sidebar: 15rem;
+  --sidebar-gap: 3rem;
+  --shelf: 16rem;
+  --figure-w: 17rem;
+  --figure-gap: 2.5rem;
+}
+
+/*
+ * How far the document head has condensed: 0 at the top of a document, 1 once
+ * it is fully compact. Registered so a scroll-driven animation can interpolate
+ * it, and inherited so the head's parts can each read it, one number drives
+ * the whole condensation, whether a scroll timeline or the fallback sets it.
+ */
+@property --head-progress {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root[data-theme='dark'] {
+  --paper: #14151a;
+  --ink: #e9e8e0;
+  --ink-soft: #a1a299;
+  --ink-faint: #6d6e66;
+  --rule: #292a30;
+  --rule-strong: #3f4047;
+  --pointer: #9ba6ff;
+  --warn: #e2794a;
+  --wash: rgba(233, 232, 224, 0.06);
+
+  --lane-0: #9ba6ff;
+  --lane-1: #b0a486;
+  --lane-2: #77c0b2;
+  --lane-3: #d5906a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #14151a;
+    --ink: #e9e8e0;
+    --ink-soft: #a1a299;
+    --ink-faint: #6d6e66;
+    --rule: #292a30;
+    --rule-strong: #3f4047;
+    --pointer: #9ba6ff;
+    --warn: #e2794a;
+    --wash: rgba(233, 232, 224, 0.06);
+
+    --lane-0: #9ba6ff;
+    --lane-1: #b0a486;
+    --lane-2: #77c0b2;
+    --lane-3: #d5906a;
+  }
+}
+
+/* ---------------------------------------------------------------- the base -- */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 100%;
+  font-feature-settings: 'kern' 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--pointer);
+  outline-offset: 3px;
+}
+
+.offscreen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/**
+ * Every machine-produced value on the page: a path, an anchor, a count, a line
+ * number, a date. Tabular figures so columns of them align, a touch more weight
+ * and a touch of tracking so they read as data, and not one of them in mono.
+ */
+.figure {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.figure.is-pointer {
+  color: var(--pointer);
+}
+
+.figure.is-quiet {
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.figure.is-caution {
+  color: var(--warn);
+}
+
+.quiet {
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+  margin: 1.5rem 0;
+}
+
+/* ------------------------------------------------------------- the geometry -- */
+
+/*
+ * The sidebar is anchored to the window's left edge; only the sheet centres in
+ * what is left. Centring the pair left a dead band down the far left on wide
+ * screens, which read as a margin nobody asked for.
+ */
+.spread {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--sidebar-gap);
+  padding: 0 2rem 18vh;
+}
+
+.sheet {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/*
+ * The sheet is not capped: the content takes the width it is given, and the
+ * measure comes from the two live columns either side of the prose, the
+ * contents pinned left, the figures floated right.
+ */
+.column,
+.masthead {
+  width: 100%;
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------- the sidebar -- */
+
+/*
+ * A column of the page, not a frame: no fill, no rule down its edge, no shadow.
+ * It is told apart from the reading column by space and alignment alone.
+ */
+.sidebar {
+  flex: 0 0 var(--sidebar);
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2.25rem 0 1.5rem;
+  min-width: 0;
+}
+
+/* Anchors the suggestions, and must not clip them: only the tree scrolls. */
+.sidebar-search {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+/* A phone-only disclosure for the tree below; see the `max-width: 44rem` rule for its shape. */
+.sidebar-toggle {
+  display: none;
+}
+
+.corpus {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding-right: 0.35rem;
+}
+
+.corpus-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+}
+
+.corpus-twist {
+  flex: 0 0 auto;
+  width: 0.85rem;
+  color: var(--ink-faint);
+  transform: translateY(0.1em);
+}
+
+.corpus-twist .twist {
+  width: 0.7rem;
+  height: 0.7rem;
+  transition: transform 0.12s ease;
+}
+
+.corpus-twist.is-open .twist {
+  transform: rotate(90deg);
+}
+
+.corpus-twist:hover {
+  color: var(--ink);
+}
+
+.corpus-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.corpus-name.is-folder {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.corpus-name:hover {
+  color: var(--pointer);
+}
+
+.corpus-name.is-current {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.figure.is-small {
+  font-size: 0.6875rem;
+  flex: 0 0 auto;
+}
+
+.sidebar-foot {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+.sidebar-foot .figure {
+  margin-left: 0.35rem;
+}
+
+/* ------------------------------------------------------------- the running head -- */
+
+/*
+ * The document's own head, condensing. It stays in view because the page keeps
+ * its identity in view, the way a running head works in print, not because the
+ * app has grown a bar. It spans the sheet's column and no more, it carries no
+ * rule, no shadow and no colour of its own, and the only paint it puts down is
+ * the page's own paper so the prose passes behind it rather than through it.
+ *
+ * Everything moves by transform. Nothing here animates a property that would
+ * lay the document out again: on a 900-line page that is the difference between
+ * a head that condenses and a page that stutters.
+ */
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--paper);
+  padding: 2.25rem 0 1.25rem;
+  transform: translateY(calc(-1 * var(--head-progress) * var(--head-shrink, 0px)));
+}
+
+/*
+ * The crumb, the actions and the reference stay exactly where they are while
+ * the head's own box rises: they carry the head's shift back the other way.
+ */
+.masthead-fixed {
+  transform: translateY(calc(var(--head-progress) * var(--head-shrink, 0px)));
+}
+
+@keyframes head-condense {
+  from {
+    --head-progress: 0;
+  }
+
+  to {
+    --head-progress: 1;
+  }
+}
+
+/*
+ * Driven by the scroll position itself where the browser can do it off the main
+ * thread. `head.js` drives the same custom property by hand where it cannot,
+ * and where the reader has asked for less motion.
+ */
+@supports (animation-timeline: scroll()) {
+  .masthead {
+    animation: head-condense linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 var(--head-range, 200px);
+  }
+}
+
+.folio {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  flex-wrap: wrap;
+  min-height: 1.75rem;
+}
+
+/* The paste that sends an agent to this page, said in full while there is room. */
+.masthead-ref {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+  margin: 0.75rem 0 0;
+}
+
+.masthead-ref:empty {
+  display: none;
+}
+
+.ref-pointer {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+}
+
+/*
+ * The sentence around the pointer is what cannot survive the condensed head, so
+ * it is the part that goes. The pointer it names does not.
+ */
+.ref-tail {
+  opacity: calc(1 - var(--head-progress));
+}
+
+.place {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  letter-spacing: 0.015em;
+}
+
+.place-part {
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+a.place-part:hover {
+  color: var(--ink);
+}
+
+.place-gap {
+  color: var(--rule-strong);
+}
+
+.place-part.is-here {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.place-part.is-open-able {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.place-part.is-open-able:hover {
+  color: var(--pointer);
+}
+
+.caret::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 4px solid currentColor;
+  transform: translateY(-1px);
+}
+
+.folio-tools {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* A quiet word, underlined only when it is being used. */
+.tool {
+  font-size: 0.78125rem;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  color: var(--ink-faint);
+  padding: 0;
+  border-bottom: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.tool:hover {
+  color: var(--ink);
+  border-bottom-color: var(--rule-strong);
+}
+
+.tool.is-on {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.tool.is-done {
+  color: var(--pointer);
+  border-bottom-color: transparent;
+}
+
+.tool.is-failed {
+  color: var(--warn);
+  border-bottom-color: transparent;
+}
+
+.status {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.status-error {
+  color: var(--warn);
+}
+
+/* ------------------------------------------------------------ disclosures -- */
+
+/*
+ * Breadcrumb, settings and search suggestions are one gesture, so they are one
+ * shape: the page's own paper, a single rule across the top, nothing else.
+ */
+.has-drop {
+  position: relative;
+}
+
+.drop {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.85rem);
+  left: 0;
+  min-width: 20rem;
+  max-width: min(30rem, calc(100vw - 4rem));
+  background: var(--paper);
+  /* Horizontal rules only: these two delimit the panel without boxing it. */
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 0.75rem 0 0.5rem;
+  margin: 0;
+  list-style: none;
+}
+
+.folio-tools .drop {
+  left: auto;
+  right: 0;
+  min-width: 13rem;
+}
+
+.drop-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.5rem;
+  padding: 0 0.25rem;
+}
+
+.drop-label .figure {
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+.drop-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.4rem 0.25rem;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.drop-row:hover {
+  background: var(--wash);
+  color: var(--ink);
+}
+
+.drop-row.is-current {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.drop-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drop-more {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.25rem 0.2rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+}
+
+.drop-more:hover {
+  color: var(--ink);
+}
+
+/* --------------------------------------------------------- floated figures -- */
+
+/*
+ * The margin. A figure floats into it and the prose runs around it, the way a
+ * figure sits in a book, never as a band above the text. With the sheet
+ * uncapped, the figures are one of the two things that set the measure: the
+ * prose is squeezed between them and the contents pinned on the left.
+ */
+.figure-block {
+  float: right;
+  width: var(--figure-w);
+  margin: 0.35rem 0 1.75rem var(--figure-gap);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.figure-block.is-inline {
+  float: none;
+  width: 100%;
+  max-width: 26rem;
+  margin: 2rem 0;
+}
+
+.figure-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.6rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.figure-label .figure {
+  letter-spacing: 0.01em;
+}
+
+/* ------------------------------------------------------------- the search -- */
+
+.search {
+  position: relative;
+}
+
+.search .search-field {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: 0;
+  padding: 0.35rem 0 0.55rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search .search-field::placeholder {
+  color: var(--ink-faint);
+}
+
+.search .search-field:focus {
+  border-bottom-color: var(--ink);
+}
+
+.search .search-field::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* Opens over the document rather than inside the sidebar's width. */
+.suggestions {
+  left: 0;
+  right: auto;
+  width: 30rem;
+  max-width: min(30rem, calc(100vw - 4rem));
+  max-height: min(30rem, 70vh);
+  overflow-y: auto;
+  padding-bottom: 0.75rem;
+}
+
+.suggestions .drop-label {
+  padding-top: 0.6rem;
+}
+
+.suggestion {
+  display: block;
+  padding: 0.45rem 0.5rem;
+  cursor: pointer;
+}
+
+.suggestion.is-active {
+  background: var(--wash);
+}
+
+.suggestion-title {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.suggestion-excerpt {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-top: 0.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion-where {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  margin-top: 0.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestion mark {
+  background: none;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.suggestion-empty {
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ink-faint);
+}
+
+/* -------------------------------------------------------- the document head -- */
+
+.title {
+  font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.032em;
+  margin: 2.5rem 0 1.25rem;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/*
+ * In the head the title shrinks rather than moves: it is scaled about its own
+ * top-left, so it stays on the line it was on and keeps the prose's alignment
+ * while it condenses. `head.js` measures the scale that lands it at reading
+ * size, so the interpolation runs between two real sizes rather than two
+ * guesses.
+ */
+.masthead .title {
+  margin: 1.25rem 0 0;
+  transform-origin: left bottom;
+  transform: scale(calc(1 - var(--head-progress) * (1 - var(--title-k, 1))));
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+  margin: 0 0 1.75rem;
+}
+
+.fact.is-caution,
+.fact.is-caution .figure {
+  color: var(--warn);
+}
+
+.lede {
+  font-size: 1.3125rem;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: var(--ink-soft);
+  margin: 0 0 3rem;
+}
+
+/* ----------------------------------------------------------- the contents -- */
+
+/*
+ * The contents is the mirror of the floated figures: a column down the left of
+ * the prose, which the prose runs beside and, at the end of the document, under.
+ *
+ * `position: sticky` does not compose with `float` in any engine, so the two
+ * effects are split across two elements: the **shelf** floats, which is what
+ * makes the prose wrap; the **pin** inside it sticks, which is what keeps the
+ * contents in view. The shelf's height is measured, it is the prose's height
+ * less a tail, so the pin releases before the end of the document and the last
+ * passages close over it instead of leaving it hanging beside the foot.
+ */
+.shelf {
+  max-width: 34rem;
+  margin: 0 0 2.75rem;
+}
+
+/*
+ * The lane only exists where there is room for all three of it, a measure and
+ * the figure margin. Below that width a right-floated figure cannot fit beside
+ * it and the engine drops the figure past the *whole* lane, a hole as tall as
+ * the document. So the contents keeps its place at the head of the prose until
+ * the page is wide enough to carry a column down its left.
+ */
+@media (min-width: 82rem) {
+  .shelf {
+    float: left;
+    width: var(--shelf);
+    max-width: none;
+    height: var(--shelf-h, auto);
+    margin: 0.35rem var(--figure-gap) 1.5rem 0;
+  }
+
+  .shelf-pin {
+    position: sticky;
+    top: calc(var(--head-condensed, 5rem) + 1.5rem);
+    max-height: calc(100vh - var(--head-condensed, 5rem) - 4rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+/*
+ * Below 82rem the shelf has no column to float into, so it sits inline at the
+ * head of the prose instead, `ContentsDock` in contents.js watches a sentinel
+ * left in that slot and docks the shelf against the bottom the moment
+ * scrolling carries the slot out of view, so jumping between sections stays
+ * one tap away on a page too narrow to keep a column beside the prose.
+ * `.is-fixed` and `.is-visible` are kept apart so the entrance can animate:
+ * position only ever switches while the shelf sits off-screen below the
+ * viewport, never mid-transition.
+ */
+.shelf-sentinel {
+  height: 0;
+}
+
+@media (max-width: 81.999rem) {
+  .shelf.is-fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    max-width: none;
+    max-height: 55vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    margin: 0;
+    background: var(--paper);
+    border-top: 1px solid var(--rule-strong);
+    box-shadow: 0 -0.75rem 1.5rem -1rem rgba(0, 0, 0, 0.22);
+    padding: 1rem 1.25rem calc(1rem + env(safe-area-inset-bottom));
+    transform: translateY(100%);
+    transition: transform 0.24s ease;
+  }
+
+  .shelf.is-fixed.is-visible {
+    transform: translateY(0);
+  }
+}
+
+.contents {
+  margin: 0;
+}
+
+.contents-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contents-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.contents-row:last-child {
+  border-bottom: none;
+}
+
+.contents-row.is-level-3 {
+  padding-left: 1rem;
+}
+
+.contents-n {
+  flex: 0 0 auto;
+  min-width: 1.4em;
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.contents-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.contents-title:hover,
+.contents-title.is-active {
+  color: var(--ink);
+}
+
+.contents-title.is-active {
+  font-weight: 600;
+}
+
+.contents-count {
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  min-width: 1.2em;
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------- the prose -- */
+
+.prose {
+  font-size: 1.1875rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote,
+.prose table,
+.prose pre {
+  margin: 0 0 1.15rem;
+}
+
+/*
+ * The head is pinned across the top of the column, so a heading reached by
+ * anchor has to stop below it: `--head-condensed` is the measured height of the
+ * condensed head, and landing a `@docs pointer#anchor` underneath it would eat
+ * the heading the pointer names.
+ */
+.prose h2,
+.prose h3,
+.prose h4 {
+  scroll-margin-top: calc(var(--head-condensed, 5rem) + 1.5rem);
+}
+
+.prose h2 {
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+  margin: 3.25rem 0 1.1rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--rule);
+}
+
+.prose h3 {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  letter-spacing: -0.008em;
+  margin: 2.25rem 0 0.85rem;
+}
+
+.prose h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 1.75rem 0 0.6rem;
+}
+
+.prose h2.is-targeted,
+.prose h3.is-targeted {
+  color: var(--pointer);
+}
+
+/*
+ * Rides the last line of the heading. It must be `inline`, not `inline-flex`:
+ * a flex box is unbreakable, so on a heading that is a whole sentence it could
+ * not fit at the end of the last line and dropped onto a line of its own,
+ * where the pointer count read as a stray digit.
+ */
+.heading-rig {
+  display: inline;
+  margin-left: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.heading-tools > * + * {
+  margin-left: 0.75rem;
+}
+
+.heading-rig > * + * {
+  margin-left: 0.75rem;
+}
+
+.heading-anchor {
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  max-width: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heading-anchor::before {
+  content: '§\00a0';
+  color: var(--rule-strong);
+}
+
+.heading-anchor:hover {
+  color: var(--ink);
+}
+
+.heading-rig .figure {
+  font-size: 0.75rem;
+}
+
+.heading-tools {
+  display: inline;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.prose h2:hover .heading-tools,
+.prose h3:hover .heading-tools,
+.heading-tools:focus-within {
+  opacity: 1;
+}
+
+.prose a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.prose a:hover {
+  border-bottom-color: var(--ink);
+}
+
+.prose .unlinked {
+  color: var(--ink-soft);
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+
+.prose strong {
+  font-weight: 700;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code, and the only place a monospace face appears. */
+.prose code,
+.issue-message code {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  color: var(--ink-soft);
+  word-break: break-word;
+}
+
+.prose pre {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.62;
+  color: var(--ink-soft);
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+}
+
+.prose pre code {
+  font-size: inherit;
+}
+
+.prose blockquote {
+  padding-left: 1.4rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+/* Width left to the layout, never 100%: a table with a definite width cannot
+   narrow beside the contents lane, and the engine drops it past the lane. */
+.prose table {
+  width: auto;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose th,
+.prose td {
+  text-align: left;
+  padding: 0.55rem 1.25rem 0.55rem 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+.prose th {
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom-color: var(--rule-strong);
+}
+
+/* ------------------------------------------------------------- the widgets -- */
+
+.widget-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.widget-row:last-of-type {
+  border-bottom: none;
+}
+
+.widget-row.is-stacked {
+  display: block;
+  padding: 0.5rem 0;
+}
+
+.widget-row.is-link:hover .widget-title,
+.widget-row.is-link:hover .widget-symbol {
+  color: var(--ink);
+}
+
+.widget-symbol,
+.widget-title {
+  color: var(--ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.widget-title {
+  white-space: normal;
+}
+
+.widget-site {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.widget-file {
+  overflow-wrap: anywhere;
+}
+
+.widget-note {
+  display: block;
+  font-size: 0.78125rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0;
+}
+
+.widget-note.is-fix {
+  color: var(--ink-faint);
+}
+
+.widget-foot {
+  font-size: 0.71875rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+  margin: 0.55rem 0 0.2rem;
+}
+
+.widget-term {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0.15rem 0 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.widget-warn .figure-label {
+  color: var(--warn);
+  border-bottom-color: var(--warn);
+}
+
+.widget-warn .widget-site {
+  color: var(--warn);
+}
+
+/* ----------------------------------------------------------- the apparatus -- */
+
+.dependents {
+  margin-top: 4rem;
+}
+
+.apparatus {
+  margin: 0 0 2.5rem;
+}
+
+.apparatus-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.apparatus-label .figure {
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.apparatus-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.4rem 0;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.apparatus-row:last-child {
+  border-bottom: none;
+}
+
+.apparatus-name {
+  color: var(--ink-soft);
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.apparatus-row.is-link:hover .apparatus-name {
+  color: var(--ink);
+}
+
+.apparatus-leader {
+  flex: 1 1 auto;
+  min-width: 1rem;
+  border-bottom: 1px dotted var(--rule-strong);
+  transform: translateY(-0.25em);
+}
+
+.apparatus-path {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+}
+
+/* ------------------------------------------------------------ the colophon -- */
+
+.colophon {
+  margin-top: 4.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.colophon:empty {
+  display: none;
+}
+
+.colophon-place {
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+  margin: 0 0 1.75rem;
+}
+
+.colophon-folder {
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.colophon-folder:hover {
+  color: var(--ink);
+}
+
+.colophon-pair {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.colophon-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 48%;
+}
+
+.colophon-step.is-next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.colophon-step-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.colophon-step-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.colophon-step:hover .colophon-step-title {
+  color: var(--pointer);
+}
+
+.colophon-out {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 2.5rem 0 0;
+}
+
+/* -------------------------------------------------------- the corpus index -- */
+
+.surface {
+  min-width: 0;
+}
+
+.surface-note {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.78125rem;
+  color: var(--ink-faint);
+  margin: -1.5rem 0 2.5rem;
+}
+
+.index-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-end;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.index-legend span:first-child {
+  margin-right: auto;
+}
+
+.index-legend .is-pointer {
+  color: var(--pointer);
+}
+
+.index-block {
+  margin-bottom: 0.25rem;
+}
+
+.index-folder {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.index-folder-name {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.index-folder:hover .index-folder-name {
+  color: var(--pointer);
+}
+
+.index-folder .figure {
+  min-width: 2.6em;
+  text-align: right;
+}
+
+.index-docs {
+  padding: 0.5rem 0 1rem 1.5rem;
+}
+
+.index-doc {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+  font-size: 0.9375rem;
+}
+
+.index-doc-name {
+  color: var(--ink-soft);
+}
+
+.index-doc:hover .index-doc-name {
+  color: var(--ink);
+}
+
+.index-doc.is-current .index-doc-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.index-doc .figure {
+  min-width: 2.2em;
+  text-align: right;
+}
+
+.index-nested {
+  padding-left: 1.5rem;
+}
+
+/* --------------------------------------------------------- the manifest view -- */
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+  margin: 0 0 2rem;
+}
+
+.field {
+  flex: 1 1 14rem;
+  font-family: var(--sans);
+  font-size: 0.875rem;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: 0;
+  padding: 0.3rem 0 0.45rem;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field::placeholder {
+  color: var(--ink-faint);
+}
+
+.field:focus {
+  border-bottom-color: var(--ink);
+}
+
+.control-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.chip {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink-faint);
+  padding: 0.1rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.chip:hover {
+  color: var(--ink);
+}
+
+.chip.is-on {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--ink);
+}
+
+.doc-rows {
+  list-style: none;
+  margin: 0 0 2.5rem;
+  padding: 0;
+}
+
+.doc-row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.doc-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.doc-line.is-head {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.doc-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+a.doc-name:hover {
+  color: var(--pointer);
+}
+
+.doc-numbers {
+  display: flex;
+  gap: 1.25rem;
+  flex: 0 0 auto;
+  font-size: 0.8125rem;
+}
+
+.doc-numbers > * {
+  min-width: 4.5em;
+  text-align: right;
+}
+
+.doc-anchors-toggle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+}
+
+.doc-anchors-toggle:hover {
+  color: var(--ink);
+}
+
+.doc-under {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 0.15rem;
+}
+
+.doc-path {
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  flex: 0 0 auto;
+}
+
+.doc-summary {
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.anchor-rows {
+  list-style: none;
+  margin: 0.75rem 0 0.25rem;
+  padding: 0 0 0 1.5rem;
+}
+
+.anchor-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.25rem 0;
+  font-size: 0.8125rem;
+}
+
+.anchor-slug {
+  flex: 0 0 12rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.anchor-title {
+  color: var(--ink-soft);
+  flex: 1 1 auto;
+}
+
+.anchor-title:hover {
+  color: var(--ink);
+}
+
+/* ----------------------------------------------------------- the health view -- */
+
+.all-clear {
+  font-size: 1.0625rem;
+  color: var(--ink-soft);
+  margin: 0 0 2.5rem;
+}
+
+.issue-rows {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.issue {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.issue-site {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--ink);
+}
+
+.issue.is-error .issue-site {
+  color: var(--warn);
+}
+
+a.issue-site:hover {
+  color: var(--pointer);
+}
+
+.issue-message {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0.2rem 0 0;
+}
+
+.issue-fix {
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+  margin: 0.2rem 0 0;
+}
+
+.path-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.path-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ---------------------------------------------------------------- history -- */
+
+.history {
+  margin: 0 0 3rem;
+}
+
+.history-switch {
+  display: flex;
+  gap: 1rem;
+}
+
+.history-body {
+  padding-top: 0.5rem;
+}
+
+.history-meta {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-faint);
+  margin: 0 0 1rem;
+}
+
+.graph {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+
+.graph-lanes {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.lane-edge {
+  fill: none;
+  stroke-width: 1.4;
+}
+
+.lane-edge-open {
+  opacity: 0.35;
+}
+
+.lane-dot {
+  stroke-width: 1.6;
+}
+
+.lane-dot.is-tip {
+  stroke-width: 2.4;
+}
+
+.graph-commits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.graph-commit {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--rule);
+}
+
+.graph-truncated {
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+}
+
+.commit-subject {
+  font-size: 0.9375rem;
+  color: var(--ink);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commit-refs {
+  margin-left: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pointer);
+}
+
+.commit-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  margin: 0.15rem 0 0;
+}
+
+.commit-hash,
+.commit-doc,
+.commit-change {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.commit-doc:hover {
+  color: var(--ink);
+}
+
+.timeline,
+.timeline-heads {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline-heads {
+  display: flex;
+  gap: 0.85rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: 0.35rem;
+}
+
+.timeline-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.timeline-picks {
+  display: flex;
+  gap: 0.85rem;
+  flex: 0 0 auto;
+}
+
+.revision-pick {
+  accent-color: var(--pointer);
+  margin: 0;
+}
+
+.timeline-body {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.diff-pane {
+  margin-top: 1.75rem;
+}
+
+.diff-loading {
+  font-size: 0.8125rem;
+  color: var(--ink-faint);
+}
+
+.diff-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.stat-added {
+  color: var(--pointer);
+}
+
+.stat-removed {
+  color: var(--warn);
+}
+
+.diff-hunk-header {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  margin: 1rem 0 0.35rem;
+}
+
+.diff-hunk {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.5rem 0;
+  overflow-x: auto;
+}
+
+.diff-line {
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+.diff-gutter {
+  flex: 0 0 3ch;
+  text-align: right;
+  color: var(--ink-faint);
+}
+
+.diff-sign {
+  flex: 0 0 1ch;
+}
+
+.diff-text {
+  flex: 1 1 auto;
+}
+
+.diff-added .diff-sign,
+.diff-added .diff-text {
+  color: var(--pointer);
+}
+
+.diff-removed .diff-sign,
+.diff-removed .diff-text {
+  color: var(--warn);
+}
+
+.diff-context .diff-text {
+  color: var(--ink-soft);
+}
+
+/* ----------------------------------------------------------------- editing -- */
+
+.editor-shell {
+  margin: 0 0 3rem;
+}
+
+.editor {
+  width: 100%;
+  min-height: 70vh;
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background: none;
+  border: none;
+  border-top: 1px solid var(--rule-strong);
+  border-radius: 0;
+  padding: 1.25rem 0 0;
+  resize: vertical;
+  outline: none;
+}
+
+/* ----------------------------------------------------------------- notices -- */
+
+.notice {
+  padding: 2rem 0;
+}
+
+.notice-headline {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.notice-detail {
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin: 0.35rem 0 0;
+}
+
+/* ------------------------------------------------------------- narrow pages -- */
+
+/*
+ * Below this width there is no margin to float into, so widgets fold inline
+ * between the sections they belong to, in reading order. `app.js` watches the
+ * complementary `(min-width: 62rem)` query and re-seats them; the fractional
+ * bound here keeps the two mutually exclusive at exactly 62rem.
+ */
+@media (max-width: 61.999rem) {
+  .spread {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .corpus {
+    max-height: 18rem;
+  }
+
+  .figure-block {
+    float: none;
+    width: 100%;
+    max-width: 26rem;
+    margin: 2rem 0;
+  }
+}
+
+@media (max-width: 44rem) {
+  .spread {
+    gap: 0.5rem;
+    padding: 0 1.25rem 10vh;
+  }
+
+  /*
+   * The sidebar collapses to a couple of lines below this width, so the
+   * generous padding and gap built for a full-height column would now sit
+   * above and around almost nothing.
+   */
+  .sidebar {
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  /*
+   * The head's tall top padding is for when it opens the page; here the
+   * sidebar already sits above it and has paid for that clearance.
+   */
+  .masthead {
+    padding-top: 1rem;
+  }
+
+  /*
+   * A screen this short cannot spare 18rem above the document for a tree the
+   * reader may not have opened yet, so it starts closed. The toggle is a line
+   * of the sidebar, not an icon standing in for one, and stays visible whether
+   * open or closed.
+   */
+  .sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.6rem 0;
+    border: none;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: none;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .sidebar-toggle .twist {
+    width: 0.7rem;
+    height: 0.7rem;
+    color: var(--ink-faint);
+    transition: transform 0.15s ease;
+  }
+
+  .sidebar-toggle[aria-expanded='true'] .twist {
+    transform: rotate(90deg);
+  }
+
+  /*
+   * Collapsed, the tree is zero-height but still a flex item, so it would keep
+   * claiming a slot in the sidebar's gap; the negative margin hands that slot
+   * back until the tree opens.
+   */
+  .corpus {
+    max-height: 0;
+    margin-top: -0.75rem;
+    overflow: hidden;
+    transition:
+      max-height 0.2s ease,
+      margin-top 0.2s ease;
+  }
+
+  .corpus.is-open {
+    max-height: 18rem;
+    margin-top: 0;
+    overflow-y: auto;
+  }
+
+  /*
+   * At full phone width the row is far wider than any name, so a count pushed
+   * to the far edge leaves a void between the two; here it follows the name.
+   */
+  .corpus-name {
+    flex: 0 1 auto;
+  }
+
+  .sidebar-foot {
+    display: none;
+  }
+
+  .sidebar-foot.is-open {
+    display: flex;
+  }
+
+  .folio {
+    gap: 1rem;
+  }
+
+  .title {
+    font-size: clamp(2.25rem, 11vw, 3rem);
+  }
+
+  .lede {
+    font-size: 1.125rem;
+  }
+
+  .prose {
+    font-size: 1.0625rem;
+  }
+
+  .prose h2 {
+    font-size: 1.375rem;
+  }
+
+  .heading-tools {
+    opacity: 1;
+  }
+
+  .drop,
+  .suggestions {
+    min-width: 0;
+    width: calc(100vw - 2.5rem);
+    max-width: calc(100vw - 2.5rem);
+  }
+
+  .colophon-pair {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .colophon-step,
+  .colophon-step.is-next {
+    max-width: 100%;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .doc-line {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .doc-numbers > * {
+    min-width: 0;
+  }
+
+  .anchor-slug {
+    flex: 0 0 auto;
+    max-width: 40%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* The head still pins; it just stops interpolating. `head.js` sets the two
+     states directly instead, so the condensation happens without motion. */
+  .masthead {
+    animation: none;
+  }
+}

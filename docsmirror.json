@@ -1,0 +1,1908 @@
+{
+  "docsmirror": "1.0",
+  "generatedAt": "2026-08-11T15:48:10.702Z",
+  "docsRoot": "docs",
+  "nodes": [
+    {
+      "path": "agents.md",
+      "title": "Working with AI agents",
+      "summary": "The convention exists partly because of them.",
+      "anchors": [
+        {
+          "slug": "working-with-ai-agents",
+          "title": "Working with AI agents",
+          "level": 1,
+          "summary": "The convention exists partly because of them.",
+          "referencedBy": [
+            {
+              "file": "packages/mcp/bin/docsmirror-mcp.js",
+              "line": 8,
+              "symbol": "require",
+              "anchor": "working-with-ai-agents"
+            },
+            {
+              "file": "packages/mcp/src/index.ts",
+              "line": 4,
+              "anchor": "working-with-ai-agents"
+            },
+            {
+              "file": "packages/mcp/src/server.ts",
+              "line": 8,
+              "anchor": "working-with-ai-agents"
+            },
+            {
+              "file": "packages/mcp/src/tools/listDocumentation.ts",
+              "line": 4,
+              "symbol": "ToolDefinition",
+              "anchor": "working-with-ai-agents"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/mcp/bin/docsmirror-mcp.js",
+          "line": 8,
+          "symbol": "require",
+          "anchor": "working-with-ai-agents"
+        },
+        {
+          "file": "packages/mcp/src/index.ts",
+          "line": 4,
+          "anchor": "working-with-ai-agents"
+        },
+        {
+          "file": "packages/mcp/src/server.ts",
+          "line": 8,
+          "anchor": "working-with-ai-agents"
+        },
+        {
+          "file": "packages/mcp/src/tools/listDocumentation.ts",
+          "line": 4,
+          "symbol": "ToolDefinition",
+          "anchor": "working-with-ai-agents"
+        }
+      ],
+      "links": [],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 332
+    },
+    {
+      "path": "architecture.md",
+      "title": "Architecture",
+      "summary": "Every surface reads pointers through core and nowhere else.",
+      "anchors": [
+        {
+          "slug": "architecture",
+          "title": "Architecture",
+          "level": 1,
+          "summary": "Every surface reads pointers through core and nowhere else.",
+          "referencedBy": []
+        },
+        {
+          "slug": "packages",
+          "title": "Packages",
+          "level": 2,
+          "summary": "Every surface reads pointers through core and nowhere else.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/index.ts",
+              "line": 5,
+              "anchor": "packages"
+            },
+            {
+              "file": "packages/web/src/index.ts",
+              "line": 8,
+              "anchor": "packages"
+            }
+          ]
+        },
+        {
+          "slug": "pluggable-docs-root",
+          "title": "Pluggable docs root",
+          "level": 2,
+          "summary": "A pointer path is resolved by a DocsRoot:",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/root/DocsRoot.ts",
+              "line": 8,
+              "anchor": "pluggable-docs-root"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/core/src/index.ts",
+          "line": 5,
+          "anchor": "packages"
+        },
+        {
+          "file": "packages/core/src/root/DocsRoot.ts",
+          "line": 8,
+          "anchor": "pluggable-docs-root"
+        },
+        {
+          "file": "packages/web/src/index.ts",
+          "line": 8,
+          "anchor": "packages"
+        }
+      ],
+      "links": [],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 751
+    },
+    {
+      "path": "cli.md",
+      "title": "The docsmirror CLI",
+      "summary": "Three commands: check, the anti-rot gate; manifest, which generates the documentation map; and serve, the local reading and editing app.",
+      "anchors": [
+        {
+          "slug": "the-docsmirror-cli",
+          "title": "The docsmirror CLI",
+          "level": 1,
+          "summary": "Three commands: check, the anti-rot gate; manifest, which generates the documentation map; and serve, the local reading and editing app.",
+          "referencedBy": []
+        },
+        {
+          "slug": "docsmirror-check",
+          "title": "docsmirror check",
+          "level": 2,
+          "summary": "It reads every source file of a project, finds the @docs pointers, and fails when one no longer resolves.",
+          "referencedBy": []
+        },
+        {
+          "slug": "options",
+          "title": "Options",
+          "level": 3,
+          "summary": "docsmirror check [projectRoot] accepts an explicit project root; it defaults to the current working directory.",
+          "referencedBy": []
+        },
+        {
+          "slug": "what-check-verifies",
+          "title": "What check verifies",
+          "level": 3,
+          "summary": "Exit codes: 0 when nothing is reported, 1 when anything is, 2 on a usage error, an unknown flag, an unreadable configuration file, a docs root that does not exist.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/validate/validate.ts",
+              "line": 161,
+              "symbol": "validateSource",
+              "anchor": "what-check-verifies"
+            },
+            {
+              "file": "packages/web/public/healthview.js",
+              "line": 13,
+              "symbol": "UNRESOLVED",
+              "anchor": "what-check-verifies"
+            }
+          ]
+        },
+        {
+          "slug": "configuration",
+          "title": "Configuration",
+          "level": 2,
+          "summary": "docsmirror.config.json at the project root.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/config.ts",
+              "line": 123,
+              "symbol": "loadConfig",
+              "anchor": "configuration"
+            }
+          ]
+        },
+        {
+          "slug": "include-and-exclude",
+          "title": "Include and exclude",
+          "level": 2,
+          "summary": "Both are glob lists matched against project-relative, /-separated paths, supporting , , ?",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/project/scanSources.ts",
+              "line": 29,
+              "symbol": "scanSources",
+              "anchor": "include-and-exclude"
+            },
+            {
+              "file": "packages/core/src/util/glob.ts",
+              "line": 5,
+              "anchor": "include-and-exclude"
+            }
+          ]
+        },
+        {
+          "slug": "generating-the-manifest",
+          "title": "Generating the manifest",
+          "level": 2,
+          "summary": "The manifest describes the whole documentation surface for machines to read; what it contains and why it is generated rather than written is in The manifest.",
+          "referencedBy": []
+        },
+        {
+          "slug": "orphan-detection",
+          "title": "Orphan detection",
+          "level": 2,
+          "summary": "Off by default, enabled with --orphans.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/markdown/links.ts",
+              "line": 29,
+              "symbol": "linkedDocuments",
+              "anchor": "orphan-detection"
+            },
+            {
+              "file": "packages/core/src/validate/validate.ts",
+              "line": 248,
+              "symbol": "findOrphanDocuments",
+              "anchor": "orphan-detection"
+            }
+          ]
+        },
+        {
+          "slug": "docsmirror-serve",
+          "title": "docsmirror serve",
+          "level": 2,
+          "summary": "Binding beyond loopback is an explicit opt-in with real consequences: the app writes to the files in your working tree, so anyone who can reach the port can edit your documentation.",
+          "referencedBy": [
+            {
+              "file": "packages/cli/src/commands/serve.ts",
+              "line": 15,
+              "symbol": "loadServer",
+              "anchor": "docsmirror-serve"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/cli/src/commands/serve.ts",
+          "line": 15,
+          "symbol": "loadServer",
+          "anchor": "docsmirror-serve"
+        },
+        {
+          "file": "packages/core/src/config.ts",
+          "line": 123,
+          "symbol": "loadConfig",
+          "anchor": "configuration"
+        },
+        {
+          "file": "packages/core/src/markdown/links.ts",
+          "line": 29,
+          "symbol": "linkedDocuments",
+          "anchor": "orphan-detection"
+        },
+        {
+          "file": "packages/core/src/project/scanSources.ts",
+          "line": 29,
+          "symbol": "scanSources",
+          "anchor": "include-and-exclude"
+        },
+        {
+          "file": "packages/core/src/util/glob.ts",
+          "line": 5,
+          "anchor": "include-and-exclude"
+        },
+        {
+          "file": "packages/core/src/validate/validate.ts",
+          "line": 161,
+          "symbol": "validateSource",
+          "anchor": "what-check-verifies"
+        },
+        {
+          "file": "packages/core/src/validate/validate.ts",
+          "line": 248,
+          "symbol": "findOrphanDocuments",
+          "anchor": "orphan-detection"
+        },
+        {
+          "file": "packages/web/public/healthview.js",
+          "line": 13,
+          "symbol": "UNRESOLVED",
+          "anchor": "what-check-verifies"
+        }
+      ],
+      "links": [
+        "manifest.md",
+        "staleness.md",
+        "web.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 1028
+    },
+    {
+      "path": "convention.md",
+      "title": "The convention",
+      "summary": "A long explanatory comment is expensive: every reader, human or machine, pays for prose they may not need, and the prose drifts away from the truth because nothing checks it.",
+      "anchors": [
+        {
+          "slug": "the-convention",
+          "title": "The convention",
+          "level": 1,
+          "summary": "A long explanatory comment is expensive: every reader, human or machine, pays for prose they may not need, and the prose drifts away from the truth because nothing checks it.",
+          "referencedBy": []
+        },
+        {
+          "slug": "the-pointer",
+          "title": "The pointer",
+          "level": 2,
+          "summary": "the file carrying the pointer, and never a markdown link.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/pointer/parse.ts",
+              "line": 97,
+              "symbol": "parseSource",
+              "anchor": "the-pointer"
+            },
+            {
+              "file": "packages/core/src/pointer/types.ts",
+              "line": 6,
+              "symbol": "DocsPointer",
+              "anchor": "the-pointer"
+            },
+            {
+              "file": "packages/mcp/src/tools/findReferences.ts",
+              "line": 3,
+              "anchor": "the-pointer"
+            }
+          ]
+        },
+        {
+          "slug": "anchors",
+          "title": "Anchors",
+          "level": 2,
+          "summary": "An anchor is a GitHub-style heading slug.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/markdown/slug.ts",
+              "line": 5,
+              "symbol": "INLINE_IMAGE",
+              "anchor": "anchors"
+            },
+            {
+              "file": "packages/mcp/src/tools/readDocumentation.ts",
+              "line": 3,
+              "anchor": "anchors"
+            },
+            {
+              "file": "packages/web/public/reader.js",
+              "line": 17,
+              "anchor": "anchors"
+            },
+            {
+              "file": "packages/web/src/markdown.ts",
+              "line": 89,
+              "symbol": "renderMarkdown",
+              "anchor": "anchors"
+            }
+          ]
+        },
+        {
+          "slug": "comment-scanning",
+          "title": "Comment scanning",
+          "level": 2,
+          "summary": "DocsMirror does not parse an abstract syntax tree.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/pointer/comments.ts",
+              "line": 13,
+              "symbol": "BlockDelimiter",
+              "anchor": "comment-scanning"
+            }
+          ]
+        },
+        {
+          "slug": "dated-content",
+          "title": "Dated content",
+          "level": 2,
+          "summary": "A section can say more than one thing was true at different times, without turning into git archaeology.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/markdown/dating.ts",
+              "line": 14,
+              "anchor": "dated-content"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/core/src/markdown/dating.ts",
+          "line": 14,
+          "anchor": "dated-content"
+        },
+        {
+          "file": "packages/core/src/markdown/slug.ts",
+          "line": 5,
+          "symbol": "INLINE_IMAGE",
+          "anchor": "anchors"
+        },
+        {
+          "file": "packages/core/src/pointer/comments.ts",
+          "line": 13,
+          "symbol": "BlockDelimiter",
+          "anchor": "comment-scanning"
+        },
+        {
+          "file": "packages/core/src/pointer/parse.ts",
+          "line": 97,
+          "symbol": "parseSource",
+          "anchor": "the-pointer"
+        },
+        {
+          "file": "packages/core/src/pointer/types.ts",
+          "line": 6,
+          "symbol": "DocsPointer",
+          "anchor": "the-pointer"
+        },
+        {
+          "file": "packages/mcp/src/tools/findReferences.ts",
+          "line": 3,
+          "anchor": "the-pointer"
+        },
+        {
+          "file": "packages/mcp/src/tools/readDocumentation.ts",
+          "line": 3,
+          "anchor": "anchors"
+        },
+        {
+          "file": "packages/web/public/reader.js",
+          "line": 17,
+          "anchor": "anchors"
+        },
+        {
+          "file": "packages/web/src/markdown.ts",
+          "line": 89,
+          "symbol": "renderMarkdown",
+          "anchor": "anchors"
+        }
+      ],
+      "links": [
+        "architecture.md",
+        "decisions/retry-policy.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 1125
+    },
+    {
+      "path": "history.md",
+      "title": "History",
+      "summary": "@docsmirror/history shows the history of a documentation folder by reading the repository's git history directly, it does not invent a second versioning format inside the documents themselves.",
+      "anchors": [
+        {
+          "slug": "history",
+          "title": "History",
+          "level": 1,
+          "summary": "@docsmirror/history shows the history of a documentation folder by reading the repository's git history directly, it does not invent a second versioning format inside the documents themselves.",
+          "referencedBy": []
+        },
+        {
+          "slug": "reading-git-not-a-new-format",
+          "title": "Reading git, not a new format",
+          "level": 2,
+          "summary": "Git already records a dated, authored history of every markdown file: who changed it, when, and what the previous content was.",
+          "referencedBy": [
+            {
+              "file": "packages/history/src/git.ts",
+              "line": 3,
+              "symbol": "GitResult",
+              "anchor": "reading-git-not-a-new-format"
+            },
+            {
+              "file": "packages/history/src/index.ts",
+              "line": 4,
+              "anchor": "reading-git-not-a-new-format"
+            },
+            {
+              "file": "packages/history/src/types.ts",
+              "line": 4,
+              "symbol": "Author",
+              "anchor": "reading-git-not-a-new-format"
+            }
+          ]
+        },
+        {
+          "slug": "the-repository-graph",
+          "title": "The repository graph",
+          "level": 2,
+          "summary": "GitHistory#repositoryGraph() runs a single git log --all --topo-order --name-status and returns every commit's hash, parents, author, ISO 8601 date, subject, decorating refs (branch/tag names), the…",
+          "referencedBy": [
+            {
+              "file": "packages/history/src/graph.ts",
+              "line": 3,
+              "symbol": "RECORD_SEPARATOR",
+              "anchor": "the-repository-graph"
+            }
+          ]
+        },
+        {
+          "slug": "a-notes-timeline",
+          "title": "A note's timeline",
+          "level": 2,
+          "summary": "GitHistory#fileTimeline() runs git log --follow --name-status scoped to one file, so a rename earlier in the file's history is still visible: each FileRevision reports a changeKind (added / modified…",
+          "referencedBy": [
+            {
+              "file": "packages/history/src/timeline.ts",
+              "line": 3,
+              "symbol": "RECORD_SEPARATOR",
+              "anchor": "a-notes-timeline"
+            }
+          ]
+        },
+        {
+          "slug": "diffs",
+          "title": "Diffs",
+          "level": 2,
+          "summary": "GitHistory#diff() runs git diff between two revisions (or a revision and \"WORKTREE\", the current on-disk state) and parses the real unified diff output, @@ -a,b +c,d @@ hunk headers and the following…",
+          "referencedBy": [
+            {
+              "file": "packages/history/src/diff.ts",
+              "line": 4,
+              "symbol": "HUNK_HEADER",
+              "anchor": "diffs"
+            }
+          ]
+        },
+        {
+          "slug": "lane-assignment",
+          "title": "Lane assignment",
+          "level": 2,
+          "summary": "Lanes are assigned by walking the commits newest-first (the order --topo-order guarantees: every commit appears before its parents) and tracking, per lane, which commit hash is expected there next:",
+          "referencedBy": [
+            {
+              "file": "packages/history/src/graph.ts",
+              "line": 116,
+              "symbol": "claimLane",
+              "anchor": "lane-assignment"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/history/src/diff.ts",
+          "line": 4,
+          "symbol": "HUNK_HEADER",
+          "anchor": "diffs"
+        },
+        {
+          "file": "packages/history/src/git.ts",
+          "line": 3,
+          "symbol": "GitResult",
+          "anchor": "reading-git-not-a-new-format"
+        },
+        {
+          "file": "packages/history/src/graph.ts",
+          "line": 3,
+          "symbol": "RECORD_SEPARATOR",
+          "anchor": "the-repository-graph"
+        },
+        {
+          "file": "packages/history/src/graph.ts",
+          "line": 116,
+          "symbol": "claimLane",
+          "anchor": "lane-assignment"
+        },
+        {
+          "file": "packages/history/src/index.ts",
+          "line": 4,
+          "anchor": "reading-git-not-a-new-format"
+        },
+        {
+          "file": "packages/history/src/timeline.ts",
+          "line": 3,
+          "symbol": "RECORD_SEPARATOR",
+          "anchor": "a-notes-timeline"
+        },
+        {
+          "file": "packages/history/src/types.ts",
+          "line": 4,
+          "symbol": "Author",
+          "anchor": "reading-git-not-a-new-format"
+        }
+      ],
+      "links": [],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 753
+    },
+    {
+      "path": "index.md",
+      "title": "DocsMirror documentation",
+      "summary": "DocsMirror keeps source comments short and the explanation in markdown.",
+      "anchors": [
+        {
+          "slug": "docsmirror-documentation",
+          "title": "DocsMirror documentation",
+          "level": 1,
+          "summary": "DocsMirror keeps source comments short and the explanation in markdown.",
+          "referencedBy": []
+        },
+        {
+          "slug": "the-convention",
+          "title": "The convention",
+          "level": 2,
+          "referencedBy": []
+        },
+        {
+          "slug": "the-map",
+          "title": "The map",
+          "level": 2,
+          "summary": "what it contains and how it is kept current.",
+          "referencedBy": []
+        },
+        {
+          "slug": "the-surfaces",
+          "title": "The surfaces",
+          "level": 2,
+          "summary": "client to it.",
+          "referencedBy": []
+        },
+        {
+          "slug": "for-agents",
+          "title": "For agents",
+          "level": 2,
+          "referencedBy": []
+        }
+      ],
+      "referencedBy": [],
+      "links": [
+        "agents.md",
+        "architecture.md",
+        "cli.md",
+        "convention.md",
+        "history.md",
+        "manifest.md",
+        "mcp.md",
+        "server.md",
+        "staleness.md",
+        "vscode.md",
+        "web.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 285
+    },
+    {
+      "path": "manifest.md",
+      "title": "The manifest",
+      "summary": "An agent that wants to know what a codebase documents has, today, exactly one option: read the docs folder.",
+      "anchors": [
+        {
+          "slug": "the-manifest",
+          "title": "The manifest",
+          "level": 1,
+          "summary": "An agent that wants to know what a codebase documents has, today, exactly one option: read the docs folder.",
+          "referencedBy": []
+        },
+        {
+          "slug": "the-format",
+          "title": "The format",
+          "level": 2,
+          "summary": "A single JSON file at the project root, beside docsmirror.config.json.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/manifest/build.ts",
+              "line": 96,
+              "symbol": "buildManifest",
+              "anchor": "the-format"
+            },
+            {
+              "file": "packages/core/src/manifest/types.ts",
+              "line": 5,
+              "anchor": "the-format"
+            },
+            {
+              "file": "packages/mcp/src/project/ProjectSnapshot.ts",
+              "line": 5,
+              "anchor": "the-format"
+            },
+            {
+              "file": "packages/mcp/src/tools/getManifest.ts",
+              "line": 4,
+              "symbol": "ToolDefinition",
+              "anchor": "the-format"
+            },
+            {
+              "file": "packages/web/public/docmeta.js",
+              "line": 12,
+              "symbol": "fact",
+              "anchor": "the-format"
+            },
+            {
+              "file": "packages/web/public/manifestview.js",
+              "line": 13,
+              "symbol": "SORTS",
+              "anchor": "the-format"
+            }
+          ]
+        },
+        {
+          "slug": "summaries",
+          "title": "Summaries",
+          "level": 2,
+          "summary": "A summary field that humans maintain by hand is a field that goes stale, so summaries are derived.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/manifest/summary.ts",
+              "line": 10,
+              "symbol": "FRONT_MATTER_SUMMARY",
+              "anchor": "summaries"
+            }
+          ]
+        },
+        {
+          "slug": "code-references",
+          "title": "Code references",
+          "level": 2,
+          "summary": "Every entry in referencedBy comes from a real @docs pointer that resolved.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/manifest/symbols.ts",
+              "line": 9,
+              "symbol": "DECLARATION_PATTERNS",
+              "anchor": "code-references"
+            },
+            {
+              "file": "packages/web/public/contents.js",
+              "line": 17,
+              "anchor": "code-references"
+            },
+            {
+              "file": "packages/web/public/refs.js",
+              "line": 13,
+              "anchor": "code-references"
+            }
+          ]
+        },
+        {
+          "slug": "keeping-it-current",
+          "title": "Keeping it current",
+          "level": 2,
+          "summary": "The manifest is generated and never hand-edited.",
+          "referencedBy": [
+            {
+              "file": "packages/cli/src/commands/check.ts",
+              "line": 41,
+              "symbol": "checkManifest",
+              "anchor": "keeping-it-current"
+            },
+            {
+              "file": "packages/cli/src/commands/manifest.ts",
+              "line": 60,
+              "symbol": "runManifest",
+              "anchor": "keeping-it-current"
+            },
+            {
+              "file": "packages/core/src/manifest/io.ts",
+              "line": 11,
+              "anchor": "keeping-it-current"
+            },
+            {
+              "file": "packages/mcp/src/project/DocsProject.ts",
+              "line": 9,
+              "anchor": "keeping-it-current"
+            },
+            {
+              "file": "packages/mcp/src/project/fingerprint.ts",
+              "line": 8,
+              "anchor": "keeping-it-current"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/cli/src/commands/check.ts",
+          "line": 41,
+          "symbol": "checkManifest",
+          "anchor": "keeping-it-current"
+        },
+        {
+          "file": "packages/cli/src/commands/manifest.ts",
+          "line": 60,
+          "symbol": "runManifest",
+          "anchor": "keeping-it-current"
+        },
+        {
+          "file": "packages/core/src/manifest/build.ts",
+          "line": 96,
+          "symbol": "buildManifest",
+          "anchor": "the-format"
+        },
+        {
+          "file": "packages/core/src/manifest/io.ts",
+          "line": 11,
+          "anchor": "keeping-it-current"
+        },
+        {
+          "file": "packages/core/src/manifest/summary.ts",
+          "line": 10,
+          "symbol": "FRONT_MATTER_SUMMARY",
+          "anchor": "summaries"
+        },
+        {
+          "file": "packages/core/src/manifest/symbols.ts",
+          "line": 9,
+          "symbol": "DECLARATION_PATTERNS",
+          "anchor": "code-references"
+        },
+        {
+          "file": "packages/core/src/manifest/types.ts",
+          "line": 5,
+          "anchor": "the-format"
+        },
+        {
+          "file": "packages/mcp/src/project/DocsProject.ts",
+          "line": 9,
+          "anchor": "keeping-it-current"
+        },
+        {
+          "file": "packages/mcp/src/project/fingerprint.ts",
+          "line": 8,
+          "anchor": "keeping-it-current"
+        },
+        {
+          "file": "packages/mcp/src/project/ProjectSnapshot.ts",
+          "line": 5,
+          "anchor": "the-format"
+        },
+        {
+          "file": "packages/mcp/src/tools/getManifest.ts",
+          "line": 4,
+          "symbol": "ToolDefinition",
+          "anchor": "the-format"
+        },
+        {
+          "file": "packages/web/public/contents.js",
+          "line": 17,
+          "anchor": "code-references"
+        },
+        {
+          "file": "packages/web/public/docmeta.js",
+          "line": 12,
+          "symbol": "fact",
+          "anchor": "the-format"
+        },
+        {
+          "file": "packages/web/public/manifestview.js",
+          "line": 13,
+          "symbol": "SORTS",
+          "anchor": "the-format"
+        },
+        {
+          "file": "packages/web/public/refs.js",
+          "line": 13,
+          "anchor": "code-references"
+        }
+      ],
+      "links": [
+        "cli.md",
+        "mcp.md",
+        "web.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 780
+    },
+    {
+      "path": "mcp.md",
+      "title": "The MCP server",
+      "summary": "The manifest is what an agent needs; MCP is how it actually gets it.",
+      "anchors": [
+        {
+          "slug": "the-mcp-server",
+          "title": "The MCP server",
+          "level": 1,
+          "summary": "The manifest is what an agent needs; MCP is how it actually gets it.",
+          "referencedBy": []
+        },
+        {
+          "slug": "why-an-agent-needs-this",
+          "title": "Why an agent needs this",
+          "level": 2,
+          "summary": "Without a map, an agent looking for a decision has two bad options: read the whole docs folder, or guess a filename.",
+          "referencedBy": []
+        },
+        {
+          "slug": "tools",
+          "title": "Tools",
+          "level": 2,
+          "summary": "search_documentation is honest lexical search: a hit in a title or an anchor outranks a hit in the body, and a whole word outranks a substring.",
+          "referencedBy": []
+        },
+        {
+          "slug": "resources",
+          "title": "Resources",
+          "level": 2,
+          "summary": "Every document is also exposed as an MCP resource at docs://<path>, with the document's title as its name and its derived summary as its description.",
+          "referencedBy": []
+        },
+        {
+          "slug": "freshness",
+          "title": "Freshness",
+          "level": 2,
+          "summary": "The server builds the manifest from the live filesystem on the first tool call, it does not require a committed docsmirror.json, and rebuilds it when a documentation file changes on disk.",
+          "referencedBy": []
+        },
+        {
+          "slug": "what-it-deliberately-does-not-do",
+          "title": "What it deliberately does not do",
+          "level": 2,
+          "summary": "It does not write.",
+          "referencedBy": []
+        }
+      ],
+      "referencedBy": [],
+      "links": [
+        "manifest.md",
+        "web.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 440
+    },
+    {
+      "path": "server.md",
+      "title": "The language server",
+      "summary": "@docsmirror/server is where every editor feature lives.",
+      "anchors": [
+        {
+          "slug": "the-language-server",
+          "title": "The language server",
+          "level": 1,
+          "summary": "@docsmirror/server is where every editor feature lives.",
+          "referencedBy": []
+        },
+        {
+          "slug": "the-server",
+          "title": "The server",
+          "level": 2,
+          "summary": "@docsmirror/server is where every editor feature lives.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/server.ts",
+              "line": 7,
+              "anchor": "the-server"
+            }
+          ]
+        },
+        {
+          "slug": "launching",
+          "title": "Launching",
+          "level": 2,
+          "summary": "The server speaks stdio by default and needs no arguments:",
+          "referencedBy": [
+            {
+              "file": "packages/server/bin/docsmirror-lsp.js",
+              "line": 7,
+              "symbol": "require",
+              "anchor": "launching"
+            },
+            {
+              "file": "packages/server/src/transport.ts",
+              "line": 8,
+              "symbol": "TRANSPORT_FLAGS",
+              "anchor": "launching"
+            }
+          ]
+        },
+        {
+          "slug": "editor-clients",
+          "title": "Editor clients",
+          "level": 2,
+          "summary": "A client is a shell: start the process, attach it to all file types, the convention is language-agnostic, so selecting by language would be wrong, and forward the docsmirror settings section.",
+          "referencedBy": [
+            {
+              "file": "packages/vscode/src/extension.ts",
+              "line": 6,
+              "anchor": "editor-clients"
+            }
+          ]
+        },
+        {
+          "slug": "hover",
+          "title": "Hover",
+          "level": 2,
+          "summary": "The headline feature, and the one that makes the convention pay for itself.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/hover.ts",
+              "line": 6,
+              "symbol": "PointerResolution",
+              "anchor": "hover"
+            },
+            {
+              "file": "packages/server/src/render/markdown.ts",
+              "line": 8,
+              "anchor": "hover"
+            }
+          ]
+        },
+        {
+          "slug": "inlay-hints",
+          "title": "Inlay hints",
+          "level": 2,
+          "summary": "A persistent hint on the pointer line carrying the section title, the target's last-modified date and a staleness badge.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/inlayHints.ts",
+              "line": 7,
+              "anchor": "inlay-hints"
+            }
+          ]
+        },
+        {
+          "slug": "custom-requests",
+          "title": "Custom requests",
+          "level": 2,
+          "summary": "Two requests exist outside the protocol, for clients that render the convention themselves.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/protocol.ts",
+              "line": 10,
+              "anchor": "custom-requests"
+            }
+          ]
+        },
+        {
+          "slug": "the-pointers-request",
+          "title": "The pointers request",
+          "level": 3,
+          "summary": "docsmirror/pointers takes { textDocument: { uri } } and answers with every pointer in the document: its range, the path#anchor sub-range a client would hide, whether it resolved, and the section's…",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/pointers.ts",
+              "line": 10,
+              "anchor": "the-pointers-request"
+            },
+            {
+              "file": "packages/vscode/src/pointers.ts",
+              "line": 14,
+              "anchor": "the-pointers-request"
+            }
+          ]
+        },
+        {
+          "slug": "the-section-request",
+          "title": "The section request",
+          "level": 3,
+          "summary": "docsmirror/section takes { textDocument, position } and answers with the pointer's section as markdown, title, docs-root-relative path, freshness line, and the body with front matter stripped and…",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/section.ts",
+              "line": 13,
+              "anchor": "the-section-request"
+            }
+          ]
+        },
+        {
+          "slug": "diagnostics",
+          "title": "Diagnostics",
+          "level": 2,
+          "summary": "The anti-rot mechanism made continuous.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/diagnostics.ts",
+              "line": 8,
+              "symbol": "IssueSeverity",
+              "anchor": "diagnostics"
+            },
+            {
+              "file": "packages/server/src/util/Debouncer.ts",
+              "line": 4,
+              "symbol": "Debouncer",
+              "anchor": "diagnostics"
+            }
+          ]
+        },
+        {
+          "slug": "definition",
+          "title": "Definition",
+          "level": 2,
+          "summary": "Go-to-definition on a pointer jumps to the markdown file, positioned at the heading line of the anchored section, or at the top of the document for a bare pointer.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/definition.ts",
+              "line": 4,
+              "symbol": "ResolvedPointer",
+              "anchor": "definition"
+            }
+          ]
+        },
+        {
+          "slug": "document-links",
+          "title": "Document links",
+          "level": 2,
+          "summary": "The pointer range is also published as a document link with the same target, so ctrl-click works in clients that prefer links to definitions.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/features/documentLink.ts",
+              "line": 8,
+              "anchor": "document-links"
+            }
+          ]
+        },
+        {
+          "slug": "pointer-index",
+          "title": "Pointer index",
+          "level": 2,
+          "summary": "Hover, inlay hints, definition, links and diagnostics all ask the same question of the same text.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/pointer/PointerIndex.ts",
+              "line": 7,
+              "symbol": "DocsPointer",
+              "anchor": "pointer-index"
+            }
+          ]
+        },
+        {
+          "slug": "labels",
+          "title": "Labels",
+          "level": 2,
+          "summary": "One vocabulary across every surface, so the same document never reads two ways: Fresh, Aging, Stale, and Undated when the docs root cannot supply a modification date.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/render/labels.ts",
+              "line": 4,
+              "symbol": "DocFile",
+              "anchor": "labels"
+            }
+          ]
+        },
+        {
+          "slug": "workspaces",
+          "title": "Workspaces",
+          "level": 2,
+          "summary": "The server resolves a docs root per project, and finds the project from the file, not from the window.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/workspace/paths.ts",
+              "line": 5,
+              "anchor": "workspaces"
+            },
+            {
+              "file": "packages/server/src/workspace/Workspace.ts",
+              "line": 4,
+              "anchor": "workspaces"
+            },
+            {
+              "file": "packages/server/src/workspace/WorkspaceRegistry.ts",
+              "line": 4,
+              "anchor": "workspaces"
+            }
+          ]
+        },
+        {
+          "slug": "finding-the-project-root",
+          "title": "Finding the project root",
+          "level": 3,
+          "summary": "An editor window is not a project.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/workspace/projectRoot.ts",
+              "line": 14,
+              "anchor": "finding-the-project-root"
+            }
+          ]
+        },
+        {
+          "slug": "settings",
+          "title": "Settings",
+          "level": 2,
+          "summary": "Sent by the client under the docsmirror section.",
+          "referencedBy": [
+            {
+              "file": "packages/server/src/settings.ts",
+              "line": 6,
+              "anchor": "settings"
+            },
+            {
+              "file": "packages/vscode/src/settings.ts",
+              "line": 5,
+              "symbol": "SETTINGS_SECTION",
+              "anchor": "settings"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/server/bin/docsmirror-lsp.js",
+          "line": 7,
+          "symbol": "require",
+          "anchor": "launching"
+        },
+        {
+          "file": "packages/server/src/features/definition.ts",
+          "line": 4,
+          "symbol": "ResolvedPointer",
+          "anchor": "definition"
+        },
+        {
+          "file": "packages/server/src/features/diagnostics.ts",
+          "line": 8,
+          "symbol": "IssueSeverity",
+          "anchor": "diagnostics"
+        },
+        {
+          "file": "packages/server/src/features/documentLink.ts",
+          "line": 8,
+          "anchor": "document-links"
+        },
+        {
+          "file": "packages/server/src/features/hover.ts",
+          "line": 6,
+          "symbol": "PointerResolution",
+          "anchor": "hover"
+        },
+        {
+          "file": "packages/server/src/features/inlayHints.ts",
+          "line": 7,
+          "anchor": "inlay-hints"
+        },
+        {
+          "file": "packages/server/src/features/pointers.ts",
+          "line": 10,
+          "anchor": "the-pointers-request"
+        },
+        {
+          "file": "packages/server/src/features/section.ts",
+          "line": 13,
+          "anchor": "the-section-request"
+        },
+        {
+          "file": "packages/server/src/pointer/PointerIndex.ts",
+          "line": 7,
+          "symbol": "DocsPointer",
+          "anchor": "pointer-index"
+        },
+        {
+          "file": "packages/server/src/protocol.ts",
+          "line": 10,
+          "anchor": "custom-requests"
+        },
+        {
+          "file": "packages/server/src/render/labels.ts",
+          "line": 4,
+          "symbol": "DocFile",
+          "anchor": "labels"
+        },
+        {
+          "file": "packages/server/src/render/markdown.ts",
+          "line": 8,
+          "anchor": "hover"
+        },
+        {
+          "file": "packages/server/src/server.ts",
+          "line": 7,
+          "anchor": "the-server"
+        },
+        {
+          "file": "packages/server/src/settings.ts",
+          "line": 6,
+          "anchor": "settings"
+        },
+        {
+          "file": "packages/server/src/transport.ts",
+          "line": 8,
+          "symbol": "TRANSPORT_FLAGS",
+          "anchor": "launching"
+        },
+        {
+          "file": "packages/server/src/util/Debouncer.ts",
+          "line": 4,
+          "symbol": "Debouncer",
+          "anchor": "diagnostics"
+        },
+        {
+          "file": "packages/server/src/workspace/paths.ts",
+          "line": 5,
+          "anchor": "workspaces"
+        },
+        {
+          "file": "packages/server/src/workspace/projectRoot.ts",
+          "line": 14,
+          "anchor": "finding-the-project-root"
+        },
+        {
+          "file": "packages/server/src/workspace/Workspace.ts",
+          "line": 4,
+          "anchor": "workspaces"
+        },
+        {
+          "file": "packages/server/src/workspace/WorkspaceRegistry.ts",
+          "line": 4,
+          "anchor": "workspaces"
+        },
+        {
+          "file": "packages/vscode/src/extension.ts",
+          "line": 6,
+          "anchor": "editor-clients"
+        },
+        {
+          "file": "packages/vscode/src/pointers.ts",
+          "line": 14,
+          "anchor": "the-pointers-request"
+        },
+        {
+          "file": "packages/vscode/src/settings.ts",
+          "line": 5,
+          "symbol": "SETTINGS_SECTION",
+          "anchor": "settings"
+        }
+      ],
+      "links": [
+        "architecture.md",
+        "staleness.md",
+        "vscode.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 1906
+    },
+    {
+      "path": "staleness.md",
+      "title": "Staleness",
+      "summary": "Documentation rots quietly.",
+      "anchors": [
+        {
+          "slug": "staleness",
+          "title": "Staleness",
+          "level": 1,
+          "summary": "Documentation rots quietly.",
+          "referencedBy": []
+        },
+        {
+          "slug": "how-staleness-is-computed",
+          "title": "How staleness is computed",
+          "level": 2,
+          "summary": "Staleness is derived from the target document's last-modified date, the only signal available for free.",
+          "referencedBy": [
+            {
+              "file": "packages/core/src/staleness.ts",
+              "line": 4,
+              "symbol": "Staleness",
+              "anchor": "how-staleness-is-computed"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/core/src/staleness.ts",
+          "line": 4,
+          "symbol": "Staleness",
+          "anchor": "how-staleness-is-computed"
+        }
+      ],
+      "links": [],
+      "lastModified": "2026-08-04",
+      "staleness": "fresh",
+      "words": 209
+    },
+    {
+      "path": "vscode.md",
+      "title": "The VS Code client",
+      "summary": "Almost nothing in docsmirror-vscode is a language feature.",
+      "anchors": [
+        {
+          "slug": "the-vs-code-client",
+          "title": "The VS Code client",
+          "level": 1,
+          "summary": "Almost nothing in docsmirror-vscode is a language feature.",
+          "referencedBy": []
+        },
+        {
+          "slug": "collapsed-markers",
+          "title": "Collapsed markers",
+          "level": 2,
+          "summary": "A pointer is machine text: @docs decisions/caching.md#why-a-write-through-cache is precise and unreadable, and it sits in the middle of prose a human is trying to read.",
+          "referencedBy": [
+            {
+              "file": "packages/vscode/src/markers.ts",
+              "line": 35,
+              "anchor": "collapsed-markers"
+            },
+            {
+              "file": "packages/vscode/src/peek.ts",
+              "line": 10,
+              "anchor": "collapsed-markers"
+            }
+          ]
+        },
+        {
+          "slug": "what-the-label-says-and-what-it-leaves-out",
+          "title": "What the label says, and what it leaves out",
+          "level": 3,
+          "summary": "The title and a chevron.",
+          "referencedBy": []
+        },
+        {
+          "slug": "expanding-one",
+          "title": "Expanding one",
+          "level": 3,
+          "summary": "The marker is the collapsed half of an accordion, and the other half opens in the best form the editor allows: inline when that is switched on and granted, otherwise the peek view, the target…",
+          "referencedBy": []
+        },
+        {
+          "slug": "inline-documentation",
+          "title": "Inline documentation",
+          "level": 2,
+          "summary": "The section's prose rendered inside the comment, in the text flow, pushing the code down.",
+          "referencedBy": [
+            {
+              "file": "packages/vscode/src/inline.ts",
+              "line": 41,
+              "anchor": "inline-documentation"
+            }
+          ]
+        },
+        {
+          "slug": "asked-for-and-instant",
+          "title": "Asked for, and instant",
+          "level": 3,
+          "summary": "A section opens because the reader clicked its marker, and only then.",
+          "referencedBy": []
+        },
+        {
+          "slug": "why-it-is-a-setting-and-off-by-default",
+          "title": "Why it is a setting, and off by default",
+          "level": 3,
+          "summary": "There is exactly one way to put arbitrary rendered content inline in a VS Code editor: window.createWebviewTextEditorInset, which is a proposed API.",
+          "referencedBy": []
+        },
+        {
+          "slug": "what-the-webview-is-allowed",
+          "title": "What the webview is allowed",
+          "level": 3,
+          "summary": "The page needs scripts, it measures its own height, so everything else is locked down around that.",
+          "referencedBy": []
+        },
+        {
+          "slug": "standing-still",
+          "title": "Standing still",
+          "level": 3,
+          "summary": "An inset cannot be resized and cannot be moved, so every correction is a new webview and every new webview is a flinch the reader sees.",
+          "referencedBy": []
+        },
+        {
+          "slug": "wearing-the-editors-typography",
+          "title": "Wearing the editor's typography",
+          "level": 3,
+          "summary": "The widget takes editor.fontFamily, editor.fontSize, editor.fontWeight and editor.lineHeight from the workspace configuration, reproducing VS Code's own reading of lineHeight, which is a multiplier…",
+          "referencedBy": []
+        },
+        {
+          "slug": "what-it-costs-measured",
+          "title": "What it costs, measured",
+          "level": 3,
+          "summary": "An inset is a webview, and VS Code gives each one its own renderer process.",
+          "referencedBy": []
+        },
+        {
+          "slug": "packaging-for-vs-code",
+          "title": "Packaging for VS Code",
+          "level": 2,
+          "summary": "A .vsix is a flat archive with no install step: whatever the extension needs at runtime has to be inside it.",
+          "referencedBy": [
+            {
+              "file": "packages/vscode/esbuild.js",
+              "line": 10,
+              "symbol": "path",
+              "anchor": "packaging-for-vs-code"
+            }
+          ]
+        },
+        {
+          "slug": "client-only-settings",
+          "title": "Client-only settings",
+          "level": 2,
+          "summary": "Most docsmirror.",
+          "referencedBy": []
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/vscode/esbuild.js",
+          "line": 10,
+          "symbol": "path",
+          "anchor": "packaging-for-vs-code"
+        },
+        {
+          "file": "packages/vscode/src/inline.ts",
+          "line": 41,
+          "anchor": "inline-documentation"
+        },
+        {
+          "file": "packages/vscode/src/markers.ts",
+          "line": 35,
+          "anchor": "collapsed-markers"
+        },
+        {
+          "file": "packages/vscode/src/peek.ts",
+          "line": 10,
+          "anchor": "collapsed-markers"
+        }
+      ],
+      "links": [
+        "server.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 3298
+    },
+    {
+      "path": "web.md",
+      "title": "The web app",
+      "summary": "A local application for reading and writing the repository's documentation: browse it, search it, edit it, and see how it changed over time.",
+      "anchors": [
+        {
+          "slug": "the-web-app",
+          "title": "The web app",
+          "level": 1,
+          "summary": "A local application for reading and writing the repository's documentation: browse it, search it, edit it, and see how it changed over time.",
+          "referencedBy": []
+        },
+        {
+          "slug": "local-not-hosted",
+          "title": "Local, not hosted",
+          "level": 2,
+          "summary": "This is a dev server, deliberately.",
+          "referencedBy": [
+            {
+              "file": "packages/cli/src/commands/serve.ts",
+              "line": 40,
+              "symbol": "runServe",
+              "anchor": "local-not-hosted"
+            }
+          ]
+        },
+        {
+          "slug": "the-composition",
+          "title": "The composition",
+          "level": 2,
+          "summary": "There is no application frame.",
+          "referencedBy": [
+            {
+              "file": "packages/web/public/head.js",
+              "line": 16,
+              "anchor": "the-composition"
+            },
+            {
+              "file": "packages/web/public/styles.css",
+              "line": 16,
+              "anchor": "the-composition"
+            }
+          ]
+        },
+        {
+          "slug": "the-head-condenses",
+          "title": "The head condenses",
+          "level": 2,
+          "summary": "The document's head stays in view and shrinks as the reader goes down the page.",
+          "referencedBy": []
+        },
+        {
+          "slug": "finding-your-way",
+          "title": "Finding your way",
+          "level": 2,
+          "summary": "Four things answer orientation, and they answer different questions.",
+          "referencedBy": [
+            {
+              "file": "packages/web/public/app.js",
+              "line": 131,
+              "symbol": "setSidebarOpen",
+              "anchor": "finding-your-way"
+            },
+            {
+              "file": "packages/web/public/contents.js",
+              "line": 198,
+              "symbol": "ContentsDock",
+              "anchor": "finding-your-way"
+            },
+            {
+              "file": "packages/web/public/folio.js",
+              "line": 18,
+              "anchor": "finding-your-way"
+            },
+            {
+              "file": "packages/web/public/indexview.js",
+              "line": 17,
+              "symbol": "documentRow",
+              "anchor": "finding-your-way"
+            },
+            {
+              "file": "packages/web/public/tree.js",
+              "line": 18,
+              "anchor": "finding-your-way"
+            }
+          ]
+        },
+        {
+          "slug": "the-measure",
+          "title": "The measure",
+          "level": 2,
+          "summary": "The sheet has no maximum width, so the measure is whatever the contents lane and the figure margin leave between them.",
+          "referencedBy": []
+        },
+        {
+          "slug": "contextual-widgets",
+          "title": "Contextual widgets",
+          "level": 2,
+          "summary": "The apparatus is composed into the margin, beside the prose it belongs to.",
+          "referencedBy": [
+            {
+              "file": "packages/web/public/widgets.js",
+              "line": 25,
+              "anchor": "contextual-widgets"
+            },
+            {
+              "file": "packages/web/src/corpus.ts",
+              "line": 17,
+              "anchor": "contextual-widgets"
+            },
+            {
+              "file": "packages/web/src/project.ts",
+              "line": 128,
+              "symbol": "emphasisOf",
+              "anchor": "contextual-widgets"
+            }
+          ]
+        },
+        {
+          "slug": "a-widget-appears-because-the-data-says-so",
+          "title": "A widget appears because the data says so",
+          "level": 3,
+          "summary": "There are no keyword rules anywhere in this feature.",
+          "referencedBy": [
+            {
+              "file": "packages/web/public/widgets.js",
+              "line": 62,
+              "symbol": "figure",
+              "anchor": "a-widget-appears-because-the-data-says-so"
+            }
+          ]
+        },
+        {
+          "slug": "a-widget-sits-where-it-fits-measured",
+          "title": "A widget sits where it fits, measured",
+          "level": 3,
+          "summary": "A float needs a run of prose at least as tall as itself to wrap around it.",
+          "referencedBy": []
+        },
+        {
+          "slug": "search",
+          "title": "Search",
+          "level": 2,
+          "summary": "A real input, always on the page, with its suggestions directly under it.",
+          "referencedBy": [
+            {
+              "file": "packages/web/public/search.js",
+              "line": 16,
+              "symbol": "QUERY_DELAY_MS",
+              "anchor": "search"
+            },
+            {
+              "file": "packages/web/src/project.ts",
+              "line": 134,
+              "symbol": "search",
+              "anchor": "search"
+            },
+            {
+              "file": "packages/web/src/search.ts",
+              "line": 234,
+              "symbol": "SearchIndex",
+              "anchor": "search"
+            }
+          ]
+        },
+        {
+          "slug": "the-whole-surface",
+          "title": "The whole surface",
+          "level": 2,
+          "summary": "Reading one page at a time is not the only question a repository gets asked.",
+          "referencedBy": []
+        },
+        {
+          "slug": "taking-a-document-elsewhere",
+          "title": "Taking a document elsewhere",
+          "level": 2,
+          "summary": "Every document, and every section of it, offers two copies.",
+          "referencedBy": [
+            {
+              "file": "packages/web/public/docmeta.js",
+              "line": 83,
+              "symbol": "referenceLine",
+              "anchor": "taking-a-document-elsewhere"
+            }
+          ]
+        },
+        {
+          "slug": "history",
+          "title": "History",
+          "level": 2,
+          "summary": "Git already records who changed what and when, so the app reads git rather than inventing a versioning format inside the documents.",
+          "referencedBy": []
+        },
+        {
+          "slug": "http-api",
+          "title": "HTTP API",
+          "level": 2,
+          "summary": "The browser front end is a client of a small JSON API, which is equally usable by anything else running locally.",
+          "referencedBy": [
+            {
+              "file": "packages/web/src/project.ts",
+              "line": 114,
+              "symbol": "healthNow",
+              "anchor": "http-api"
+            },
+            {
+              "file": "packages/web/src/server.ts",
+              "line": 35,
+              "symbol": "startDocsServer",
+              "anchor": "http-api"
+            }
+          ]
+        },
+        {
+          "slug": "writing-safely",
+          "title": "Writing safely",
+          "level": 2,
+          "summary": "The server writes files, so it is strict about which:",
+          "referencedBy": [
+            {
+              "file": "packages/web/src/markdown.ts",
+              "line": 11,
+              "symbol": "DOCUMENT_EXTENSIONS",
+              "anchor": "writing-safely"
+            },
+            {
+              "file": "packages/web/src/paths.ts",
+              "line": 14,
+              "symbol": "docPathOf",
+              "anchor": "writing-safely"
+            }
+          ]
+        }
+      ],
+      "referencedBy": [
+        {
+          "file": "packages/cli/src/commands/serve.ts",
+          "line": 40,
+          "symbol": "runServe",
+          "anchor": "local-not-hosted"
+        },
+        {
+          "file": "packages/web/public/app.js",
+          "line": 131,
+          "symbol": "setSidebarOpen",
+          "anchor": "finding-your-way"
+        },
+        {
+          "file": "packages/web/public/contents.js",
+          "line": 198,
+          "symbol": "ContentsDock",
+          "anchor": "finding-your-way"
+        },
+        {
+          "file": "packages/web/public/docmeta.js",
+          "line": 83,
+          "symbol": "referenceLine",
+          "anchor": "taking-a-document-elsewhere"
+        },
+        {
+          "file": "packages/web/public/folio.js",
+          "line": 18,
+          "anchor": "finding-your-way"
+        },
+        {
+          "file": "packages/web/public/head.js",
+          "line": 16,
+          "anchor": "the-composition"
+        },
+        {
+          "file": "packages/web/public/indexview.js",
+          "line": 17,
+          "symbol": "documentRow",
+          "anchor": "finding-your-way"
+        },
+        {
+          "file": "packages/web/public/search.js",
+          "line": 16,
+          "symbol": "QUERY_DELAY_MS",
+          "anchor": "search"
+        },
+        {
+          "file": "packages/web/public/styles.css",
+          "line": 16,
+          "anchor": "the-composition"
+        },
+        {
+          "file": "packages/web/public/tree.js",
+          "line": 18,
+          "anchor": "finding-your-way"
+        },
+        {
+          "file": "packages/web/public/widgets.js",
+          "line": 25,
+          "anchor": "contextual-widgets"
+        },
+        {
+          "file": "packages/web/public/widgets.js",
+          "line": 62,
+          "symbol": "figure",
+          "anchor": "a-widget-appears-because-the-data-says-so"
+        },
+        {
+          "file": "packages/web/src/corpus.ts",
+          "line": 17,
+          "anchor": "contextual-widgets"
+        },
+        {
+          "file": "packages/web/src/markdown.ts",
+          "line": 11,
+          "symbol": "DOCUMENT_EXTENSIONS",
+          "anchor": "writing-safely"
+        },
+        {
+          "file": "packages/web/src/paths.ts",
+          "line": 14,
+          "symbol": "docPathOf",
+          "anchor": "writing-safely"
+        },
+        {
+          "file": "packages/web/src/project.ts",
+          "line": 114,
+          "symbol": "healthNow",
+          "anchor": "http-api"
+        },
+        {
+          "file": "packages/web/src/project.ts",
+          "line": 128,
+          "symbol": "emphasisOf",
+          "anchor": "contextual-widgets"
+        },
+        {
+          "file": "packages/web/src/project.ts",
+          "line": 134,
+          "symbol": "search",
+          "anchor": "search"
+        },
+        {
+          "file": "packages/web/src/search.ts",
+          "line": 234,
+          "symbol": "SearchIndex",
+          "anchor": "search"
+        },
+        {
+          "file": "packages/web/src/server.ts",
+          "line": 35,
+          "symbol": "startDocsServer",
+          "anchor": "http-api"
+        }
+      ],
+      "links": [
+        "architecture.md",
+        "cli.md",
+        "history.md",
+        "manifest.md"
+      ],
+      "lastModified": "2026-08-11",
+      "staleness": "fresh",
+      "words": 3907
+    }
+  ],
+  "stats": {
+    "documents": 12,
+    "anchors": 87,
+    "references": 94,
+    "orphans": 0,
+    "referencedDocuments": 10
+  }
+}

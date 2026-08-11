@@ -1,0 +1,50 @@
+{
+  "name": "@docsmirror/mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for DocsMirror. Serves a project's documentation map, what exists, what it covers, and which code depends on it, to coding agents.",
+  "license": "MIT",
+  "author": "DocsMirror contributors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "docsmirror-mcp": "bin/docsmirror-mcp.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "@docsmirror/core": "^0.1.0",
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "agents",
+    "docs",
+    "documentation",
+    "markdown"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme"
+}

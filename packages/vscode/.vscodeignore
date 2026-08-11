@@ -1,0 +1,12 @@
+# Everything the extension needs at runtime is bundled into dist/.
+.vscode/**
+src/**
+out/**
+node_modules/**
+esbuild.js
+tsconfig.json
+tsconfig.tsbuildinfo
+**/*.map
+**/*.ts
+**/*.vsix
+!dist/**/*.js

@@ -1,0 +1,50 @@
+{
+  "name": "@docsmirror/server",
+  "version": "0.1.0",
+  "description": "The DocsMirror language server: renders @docs pointers in the comment space of any LSP-speaking editor.",
+  "license": "MIT",
+  "author": "DocsMirror contributors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "bin": {
+    "docsmirror-lsp": "bin/docsmirror-lsp.js"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@docsmirror/core": "^0.1.0",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "lsp",
+    "language-server",
+    "docs",
+    "documentation",
+    "hover",
+    "inlay-hints"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/server"
+  },
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme"
+}

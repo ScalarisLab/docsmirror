@@ -1,0 +1,47 @@
+{
+  "name": "docsmirror-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Short source comments that point at real documentation, and the tooling that keeps the pointers honest.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/core",
+    "packages/cli",
+    "packages/mcp",
+    "packages/history",
+    "packages/server",
+    "packages/vscode",
+    "packages/web"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "check": "node packages/cli/bin/docsmirror.js check --orphans",
+    "manifest": "node packages/cli/bin/docsmirror.js manifest",
+    "serve": "node packages/cli/bin/docsmirror.js serve"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme",
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "keywords": [
+    "docs",
+    "documentation",
+    "comments",
+    "language-server",
+    "lsp",
+    "markdown"
+  ]
+}

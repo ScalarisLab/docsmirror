@@ -1,0 +1,42 @@
+{
+  "name": "@docsmirror/history",
+  "version": "0.1.0",
+  "description": "Reads a documentation folder's history straight from git: commit graph, per-file timelines, and diffs.",
+  "license": "MIT",
+  "author": "DocsMirror contributors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "docs",
+    "documentation",
+    "git",
+    "history",
+    "diff",
+    "graph"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/history"
+  },
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme"
+}

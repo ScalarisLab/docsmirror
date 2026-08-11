@@ -1,0 +1,51 @@
+{
+  "name": "@docsmirror/web",
+  "version": "0.1.0",
+  "description": "Local web app for DocsMirror. Browses, searches, reads, edits and shows the git history of a repository's markdown files.",
+  "license": "MIT",
+  "author": "DocsMirror contributors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "docsmirror-serve": "bin/docsmirror-serve.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "bin",
+    "dist",
+    "public"
+  ],
+  "dependencies": {
+    "@docsmirror/core": "^0.1.0",
+    "@docsmirror/history": "^0.1.0",
+    "marked": "^15.0.12"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "docs",
+    "documentation",
+    "markdown",
+    "editor",
+    "server",
+    "git"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/web"
+  },
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme"
+}

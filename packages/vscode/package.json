@@ -1,0 +1,121 @@
+{
+  "name": "docsmirror-vscode",
+  "displayName": "DocsMirror",
+  "description": "Renders the documentation a @docs pointer targets, in the comment space, powered by the DocsMirror language server.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "publisher": "docsmirror",
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "docs",
+    "documentation",
+    "comments",
+    "language-server",
+    "lsp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/vscode"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "enabledApiProposals": [
+    "editorInsets"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "DocsMirror",
+      "properties": {
+        "docsmirror.docsRoot": {
+          "type": "string",
+          "default": "docs",
+          "markdownDescription": "Folder that `@docs` paths are relative to, itself relative to the workspace folder. Overrides `docsRoot` in `docsmirror.config.json`."
+        },
+        "docsmirror.staleness.agingAfterDays": {
+          "type": "number",
+          "default": 90,
+          "minimum": 0,
+          "description": "Days after which a target document is reported as aging."
+        },
+        "docsmirror.staleness.staleAfterDays": {
+          "type": "number",
+          "default": 180,
+          "minimum": 0,
+          "description": "Days after which a target document is reported as stale."
+        },
+        "docsmirror.inlineDocs.enabled": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "Render a pointer's section as the **documentation itself, inside the comment**, instead of expanding into a peek view. **Click the marker** to open the section where it stands, click it again to close it; `Alt+D` does the same from the keyboard. Every section in the open document is fetched ahead of the reader, so opening one is instant. \n\nThis needs a VS Code API that is still *proposed*, so it must be granted at startup: run **Preferences: Configure Runtime Arguments** and add `\"enable-proposed-api\": [\"docsmirror.docsmirror-vscode\"]`, then restart VS Code. Without that step this setting does nothing and expanding falls back to the peek view."
+        },
+        "docsmirror.markers.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Collapse a resolved `@docs` pointer so the line reads as the section title rather than as a path. The file is never modified, and the raw pointer reappears on the line the cursor is on. Turn this off to get a plain inlay hint beside the untouched pointer instead. Requires `#docsmirror.inlayHints.enabled#`."
+        },
+        "docsmirror.inlayHints.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Master switch for annotating pointer lines at all. With `#docsmirror.markers.enabled#` on, the annotation is the collapsed marker; with it off, a plain inlay hint beside the untouched pointer carrying the section title, last-modified date and staleness. Off means the line is left alone entirely."
+        },
+        "docsmirror.diagnostics.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Report a pointer whose document or anchor does not exist as a problem."
+        },
+        "docsmirror.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "description": "Trace the communication between the editor and the DocsMirror language server."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "docsmirror.peek",
+        "title": "DocsMirror: Expand Documentation Here"
+      },
+      {
+        "command": "docsmirror.restartServer",
+        "title": "DocsMirror: Restart Language Server"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "docsmirror.peek",
+        "key": "alt+d",
+        "when": "editorTextFocus && docsmirror.pointerOnLine"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -b && node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "package": "npm run build && npx --yes @vscode/vsce package --no-dependencies --out docsmirror-vscode.vsix",
+    "typecheck": "tsc -b --pretty"
+  },
+  "dependencies": {
+    "marked": "^15.0.12"
+  },
+  "devDependencies": {
+    "@docsmirror/server": "^0.1.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.28.1",
+    "vscode-languageclient": "^9.0.1"
+  }
+}

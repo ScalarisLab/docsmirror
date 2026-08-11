@@ -1,0 +1,52 @@
+{
+  "name": "@docsmirror/cli",
+  "version": "0.1.0",
+  "description": "Command-line interface for DocsMirror. Validates @docs pointers against a project's docs root.",
+  "license": "MIT",
+  "author": "DocsMirror contributors",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "docsmirror": "bin/docsmirror.js"
+  },
+  "main": "dist/main.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "bin",
+    "dist",
+    "src"
+  ],
+  "dependencies": {
+    "@docsmirror/core": "^0.1.0"
+  },
+  "optionalDependencies": {
+    "@docsmirror/web": "^0.1.0"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty",
+    "pretest": "npm run build",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "docs",
+    "documentation",
+    "lint",
+    "check",
+    "ci",
+    "markdown"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScalarisLab/docsmirror.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/ScalarisLab/docsmirror/issues"
+  },
+  "homepage": "https://github.com/ScalarisLab/docsmirror#readme"
+}
