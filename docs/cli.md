@@ -1,12 +1,13 @@
 # The `docsmirror` CLI
 
-Three commands: `check`, the anti-rot gate; `manifest`, which generates the documentation map; and
-`serve`, the local reading and editing app.
+Four commands: `check`, the anti-rot gate; `manifest`, which generates the documentation map;
+`serve`, the local reading and editing app; and `export`, a static, read-only copy of it.
 
 ```bash
 npx @docsmirror/cli check
 npx @docsmirror/cli manifest
 npx @docsmirror/cli serve
+npx @docsmirror/cli export
 ```
 
 ## `docsmirror check`
@@ -133,3 +134,18 @@ reason, and loaded dynamically rather than imported at the top of the file. A pl
 still gets it, so `serve` works out of the box; a CI image built only to run `check`/`manifest` can
 run `npm ci --omit=optional` and skip it entirely. Running `serve` without it installed fails with
 one line telling you to `npm install @docsmirror/web`, not a stack trace.
+
+## `docsmirror export`
+
+```bash
+docsmirror export                 # writes ./docs-site
+docsmirror export --out site      # writes ./site instead
+```
+
+Writes a static, read-only copy of [the web app](web.md) to a folder: the same front end, reading
+from JSON baked in at export time instead of a live server, ready to host anywhere that serves
+plain files, GitHub Pages included. Details, including exactly what does and does not carry over
+from the live app: [Static export](web.md#static-export).
+
+Like `serve`, this is the one command besides it that pulls in `@docsmirror/web`, dynamically and
+optionally for the same reason.

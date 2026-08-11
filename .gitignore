@@ -1,6 +1,7 @@
 node_modules/
 dist/
 out/
+docs-site/
 *.vsix
 *.tsbuildinfo
 .DS_Store

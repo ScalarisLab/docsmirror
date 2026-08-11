@@ -312,7 +312,10 @@ Select any two revisions of a note to see the diff between them, including the u
 tree state.
 
 When git is unavailable, no repository, no git binary, or a repository with no commits, the
-history view says so plainly instead of failing. Everything else keeps working.
+history view says so plainly instead of failing. Everything else keeps working. A
+[static export](#static-export) is a third case with the same shape: git ran once, at export time,
+so the timeline is real, but comparing two revisions needs a live server to run against, and the
+view says that plainly too instead of offering a control that would always fail.
 
 ## HTTP API
 
@@ -338,6 +341,50 @@ The corpus term index behind `/api/emphasis` costs one pass over every document,
 lazily on first use and discarded whenever a write invalidates the manifest. The search index
 behaves the same way, built lazily on the first query, invalidated by a write, and both read the
 corpus through one shared per-document cache, so the files are read once, not twice.
+
+## Static export
+
+```bash
+docsmirror export
+```
+
+[Local, not hosted](#local-not-hosted) says why `serve` stays a dev server: it writes to your
+working tree, and a hosted editor writing to a branch behind your back would break the review model
+documentation is supposed to live under. None of that is true of *reading*. A repository's own
+documentation, published read-only wherever the repository already is, GitHub Pages, is a different
+product decision with none of that risk, so `export` is a second front door onto the same app rather
+than a second app: the identical `public/` front end, reading from files written once at export time
+instead of asking a server for them on every request.
+
+**What is included.** Every document, the manifest, the health report, the emphasis widget, the
+repository graph, and every note's timeline, walking every asset a document embeds, are all read
+once and written into the export as JSON and copied files. Search runs the exact function
+`/api/search` runs: `esbuild.js` bundles `search.ts` for the browser, because that algorithm has no
+dependency on Node or on a live project, given a corpus and a query it is pure, so the same bundle
+answers a query in `serve` and in a static export without two implementations to keep in sync.
+
+**What is not.** Two things need a live server and stay out of the export on purpose rather than
+being faked: **writing**, the Edit control does not appear, because there is nothing on the other
+end of a save; and **comparing two arbitrary revisions**, because the picker lets a reader choose
+any pair from up to two hundred, including the uncommitted working tree, and baking in every
+possible pair is not a real option. The timeline itself is real, read once at export time, the
+history view just says plainly that the diff needs `docsmirror serve` instead of offering a control
+that would always fail.
+
+**Hosting it.** The output is plain files: any static host serves it. For GitHub Pages specifically,
+export in a workflow, then hand the result to `actions/upload-pages-artifact` and
+`actions/deploy-pages`:
+
+```yaml
+- run: node packages/cli/bin/docsmirror.js export --out docs-site
+- uses: actions/upload-pages-artifact@v3
+  with:
+    path: docs-site
+- uses: actions/deploy-pages@v4
+```
+
+`.github/workflows/pages.yml` in this repository is exactly that, exporting this repository's own
+documentation on every push to `main`.
 
 ## Writing safely
 

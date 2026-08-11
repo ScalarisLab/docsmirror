@@ -141,7 +141,7 @@ export class DocsProject {
     return manifest.nodes.find((node) => node.path === path);
   }
 
-  async readDocument(path: string): Promise<DocumentPayload | undefined> {
+  async readDocument(path: string, options?: { assetUrl?: (path: string) => string }): Promise<DocumentPayload | undefined> {
     const file = await this.root.read(path);
     if (file === undefined) {
       return undefined;
@@ -154,7 +154,7 @@ export class DocsProject {
       markdown: file.content,
       // The dated view, applied only to what is displayed: a marker rendered
       // into a visible label must never round-trip into the file it labels.
-      html: renderMarkdown(renderDatedSections(file.content), file.path),
+      html: renderMarkdown(renderDatedSections(file.content), file.path, options?.assetUrl),
       lastModified: file.lastModified?.toISOString(),
       sections,
     };

@@ -1,5 +1,6 @@
 import { MANIFEST_FILE_NAME } from '@docsmirror/core';
 import { runCheck, type CheckOptions } from './commands/check';
+import { runExport, type ExportOptions } from './commands/export';
 import { runManifest, type ManifestOptions } from './commands/manifest';
 import { runServe, type ServeOptions } from './commands/serve';
 
@@ -13,6 +14,7 @@ Commands:
   check [projectRoot]      Validate @docs pointers in a project
   manifest [projectRoot]   Generate the documentation manifest (${MANIFEST_FILE_NAME})
   serve [projectRoot]      Browse, search and edit the documentation locally
+  export [projectRoot]     Write a static, read-only copy of the documentation app
 
 Global options:
   --help, -h      Show help
@@ -84,6 +86,25 @@ Options:
 Exit codes:
   0   stopped cleanly
   2   usage error (bad flag, missing docs root)
+`;
+
+const EXPORT_USAGE = `Usage: docsmirror export [projectRoot] [options]
+
+Writes a static, read-only copy of the documentation app: every document, the
+manifest, health, search and git history, ready to host anywhere that serves
+plain files, GitHub Pages included. Editing and comparing two arbitrary
+revisions need a live server and are not part of the export; run
+\`docsmirror serve\` locally for those. projectRoot defaults to the current
+working directory.
+
+Options:
+  --out <dir>        Output directory, relative to projectRoot (default "docs-site")
+  --help, -h         Show this help
+  --version, -v      Show version number
+
+Exit codes:
+  0   written
+  2   usage error (bad flag, missing docs root, @docsmirror/web not installed)
 `;
 
 /** Flags shared by every command that scans a project. */
@@ -284,6 +305,34 @@ function parseServeArgs(args: readonly string[]): ServeOptions {
   return { projectRoot: projectRoot ?? process.cwd(), port, host };
 }
 
+function parseExportArgs(args: readonly string[]): ExportOptions {
+  let projectRoot: string | undefined;
+  let outDir = 'docs-site';
+
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+    honorInfoFlags(arg);
+    if (arg === '--out') {
+      const value = args[i + 1];
+      if (value === undefined) {
+        throw new UsageError('--out requires a value');
+      }
+      outDir = value;
+      i += 1;
+      continue;
+    }
+    if (arg !== undefined && arg.startsWith('-')) {
+      throw new UsageError(`Unknown option: ${arg}`);
+    }
+    if (projectRoot !== undefined) {
+      throw new UsageError(`Unexpected argument: ${arg}`);
+    }
+    projectRoot = arg;
+  }
+
+  return { projectRoot: projectRoot ?? process.cwd(), outDir };
+}
+
 /** Runs one command, or answers the help/version/usage-error interruptions its parser threw. */
 async function dispatch(run: () => Promise<number>, usage: string): Promise<number> {
   try {
@@ -332,6 +381,9 @@ export async function main(argv: readonly string[]): Promise<number> {
   }
   if (command === 'serve') {
     return dispatch(() => runServe(parseServeArgs(rest)), SERVE_USAGE);
+  }
+  if (command === 'export') {
+    return dispatch(async () => report(await runExport(parseExportArgs(rest))), EXPORT_USAGE);
   }
 
   process.stderr.write(`docsmirror: unknown command \`${command}\`\n\n${TOP_USAGE}`);

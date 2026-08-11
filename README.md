@@ -215,12 +215,17 @@ History comes from git rather than from a versioning format invented inside the 
 repository-level graph of commits touching the docs, a linear timeline per note, and a diff between
 any two revisions. Details: [docs/web.md](docs/web.md).
 
+`docsmirror export` writes a static, read-only copy of the same app: every document, search and
+history baked in, ready for GitHub Pages or any other static host. This repository publishes its
+own documentation that way, on every push to `main`; see
+[Static export](docs/web.md#static-export).
+
 ## Packages
 
 | Package | What it is |
 | --- | --- |
 | [`@docsmirror/core`](packages/core) | The convention itself: parsing, resolution, validation, and the manifest. Zero runtime dependencies. |
-| [`@docsmirror/cli`](packages/cli) | `docsmirror check`, `manifest`, `serve`. |
+| [`@docsmirror/cli`](packages/cli) | `docsmirror check`, `manifest`, `serve`, `export`. |
 | [`@docsmirror/server`](packages/server) | The language server. |
 | [`@docsmirror/mcp`](packages/mcp) | The MCP server, for coding agents. |
 | [`@docsmirror/web`](packages/web) | The local documentation app. |

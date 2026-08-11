@@ -23,10 +23,13 @@
     "marked": "^15.0.12"
   },
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsc -b && node esbuild.js",
     "typecheck": "tsc -b --pretty",
     "pretest": "npm run build",
     "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
   },
   "engines": {
     "node": ">=18"

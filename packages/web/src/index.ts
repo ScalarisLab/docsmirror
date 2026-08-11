@@ -12,3 +12,6 @@ export { startDocsServer } from './server';
 export type { DocsServer, DocsServerOptions } from './server';
 
 export { DocsProject } from './project';
+
+export { exportStaticSite } from './export';
+export type { ExportOptions, ExportSummary } from './export';

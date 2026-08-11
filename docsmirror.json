@@ -1,6 +1,6 @@
 {
   "docsmirror": "1.0",
-  "generatedAt": "2026-08-11T15:48:10.702Z",
+  "generatedAt": "2026-08-11T16:00:06.897Z",
   "docsRoot": "docs",
   "nodes": [
     {
@@ -137,13 +137,13 @@
     {
       "path": "cli.md",
       "title": "The docsmirror CLI",
-      "summary": "Three commands: check, the anti-rot gate; manifest, which generates the documentation map; and serve, the local reading and editing app.",
+      "summary": "Four commands: check, the anti-rot gate; manifest, which generates the documentation map; serve, the local reading and editing app; and export, a static, read-only copy of it.",
       "anchors": [
         {
           "slug": "the-docsmirror-cli",
           "title": "The docsmirror CLI",
           "level": 1,
-          "summary": "Three commands: check, the anti-rot gate; manifest, which generates the documentation map; and serve, the local reading and editing app.",
+          "summary": "Four commands: check, the anti-rot gate; manifest, which generates the documentation map; serve, the local reading and editing app; and export, a static, read-only copy of it.",
           "referencedBy": []
         },
         {
@@ -253,9 +253,29 @@
               "anchor": "docsmirror-serve"
             }
           ]
+        },
+        {
+          "slug": "docsmirror-export",
+          "title": "docsmirror export",
+          "level": 2,
+          "summary": "Writes a static, read-only copy of the web app to a folder: the same front end, reading from JSON baked in at export time instead of a live server, ready to host anywhere that serves plain files,…",
+          "referencedBy": [
+            {
+              "file": "packages/cli/src/commands/export.ts",
+              "line": 19,
+              "symbol": "loadWeb",
+              "anchor": "docsmirror-export"
+            }
+          ]
         }
       ],
       "referencedBy": [
+        {
+          "file": "packages/cli/src/commands/export.ts",
+          "line": 19,
+          "symbol": "loadWeb",
+          "anchor": "docsmirror-export"
+        },
         {
           "file": "packages/cli/src/commands/serve.ts",
           "line": 15,
@@ -311,7 +331,7 @@
       ],
       "lastModified": "2026-08-11",
       "staleness": "fresh",
-      "words": 1028
+      "words": 1135
     },
     {
       "path": "convention.md",
@@ -374,7 +394,7 @@
             },
             {
               "file": "packages/web/src/markdown.ts",
-              "line": 89,
+              "line": 96,
               "symbol": "renderMarkdown",
               "anchor": "anchors"
             }
@@ -455,7 +475,7 @@
         },
         {
           "file": "packages/web/src/markdown.ts",
-          "line": 89,
+          "line": 96,
           "symbol": "renderMarkdown",
           "anchor": "anchors"
         }
@@ -1608,7 +1628,7 @@
             },
             {
               "file": "packages/web/public/folio.js",
-              "line": 18,
+              "line": 19,
               "anchor": "finding-your-way"
             },
             {
@@ -1696,7 +1716,7 @@
             },
             {
               "file": "packages/web/src/search.ts",
-              "line": 234,
+              "line": 242,
               "symbol": "SearchIndex",
               "anchor": "search"
             }
@@ -1751,6 +1771,56 @@
           ]
         },
         {
+          "slug": "static-export",
+          "title": "Static export",
+          "level": 2,
+          "summary": "Local, not hosted says why serve stays a dev server: it writes to your working tree, and a hosted editor writing to a branch behind your back would break the review model documentation is supposed to…",
+          "referencedBy": [
+            {
+              "file": "packages/cli/src/commands/export.ts",
+              "line": 41,
+              "symbol": "runExport",
+              "anchor": "static-export"
+            },
+            {
+              "file": "packages/web/esbuild.js",
+              "line": 12,
+              "symbol": "path",
+              "anchor": "static-export"
+            },
+            {
+              "file": "packages/web/public/api.js",
+              "line": 6,
+              "symbol": "STATIC",
+              "anchor": "static-export"
+            },
+            {
+              "file": "packages/web/public/api.js",
+              "line": 65,
+              "symbol": "staticSearch",
+              "anchor": "static-export"
+            },
+            {
+              "file": "packages/web/src/export.ts",
+              "line": 35,
+              "symbol": "encodeDocPath",
+              "anchor": "static-export"
+            },
+            {
+              "file": "packages/web/src/export.ts",
+              "line": 114,
+              "symbol": "exportStaticSite",
+              "anchor": "static-export"
+            },
+            {
+              "file": "packages/web/src/search.ts",
+              "line": 157,
+              "symbol": "searchIndexed",
+              "anchor": "static-export"
+            }
+          ]
+        },
+        {
           "slug": "writing-safely",
           "title": "Writing safely",
           "level": 2,
@@ -1773,10 +1843,34 @@
       ],
       "referencedBy": [
         {
+          "file": "packages/cli/src/commands/export.ts",
+          "line": 41,
+          "symbol": "runExport",
+          "anchor": "static-export"
+        },
+        {
           "file": "packages/cli/src/commands/serve.ts",
           "line": 40,
           "symbol": "runServe",
           "anchor": "local-not-hosted"
+        },
+        {
+          "file": "packages/web/esbuild.js",
+          "line": 12,
+          "symbol": "path",
+          "anchor": "static-export"
+        },
+        {
+          "file": "packages/web/public/api.js",
+          "line": 6,
+          "symbol": "STATIC",
+          "anchor": "static-export"
+        },
+        {
+          "file": "packages/web/public/api.js",
+          "line": 65,
+          "symbol": "staticSearch",
+          "anchor": "static-export"
         },
         {
           "file": "packages/web/public/app.js",
@@ -1798,7 +1892,7 @@
         },
         {
           "file": "packages/web/public/folio.js",
-          "line": 18,
+          "line": 19,
           "anchor": "finding-your-way"
         },
         {
@@ -1845,6 +1939,18 @@
           "anchor": "contextual-widgets"
         },
         {
+          "file": "packages/web/src/export.ts",
+          "line": 35,
+          "symbol": "encodeDocPath",
+          "anchor": "static-export"
+        },
+        {
+          "file": "packages/web/src/export.ts",
+          "line": 114,
+          "symbol": "exportStaticSite",
+          "anchor": "static-export"
+        },
+        {
           "file": "packages/web/src/markdown.ts",
           "line": 11,
           "symbol": "DOCUMENT_EXTENSIONS",
@@ -1876,7 +1982,13 @@
         },
         {
           "file": "packages/web/src/search.ts",
-          "line": 234,
+          "line": 157,
+          "symbol": "searchIndexed",
+          "anchor": "static-export"
+        },
+        {
+          "file": "packages/web/src/search.ts",
+          "line": 242,
           "symbol": "SearchIndex",
           "anchor": "search"
         },
@@ -1895,13 +2007,13 @@
       ],
       "lastModified": "2026-08-11",
       "staleness": "fresh",
-      "words": 3907
+      "words": 4346
     }
   ],
   "stats": {
     "documents": 12,
-    "anchors": 87,
-    "references": 94,
+    "anchors": 89,
+    "references": 102,
     "orphans": 0,
     "referencedDocuments": 10
   }

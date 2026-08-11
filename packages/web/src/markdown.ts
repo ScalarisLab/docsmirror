@@ -77,6 +77,9 @@ function classifyLink(fromPath: string, rawHref: string): LinkRendering {
   return { kind: 'document', href: documentHref(resolved, anchor?.toLowerCase()) };
 }
 
+/** Where an image's resolved docs-root-relative path is served from. */
+const LIVE_ASSET_URL = (path: string): string => `/asset?path=${encodeURIComponent(path)}`;
+
 /**
  * Renders a document to HTML.
  *
@@ -86,9 +89,17 @@ function classifyLink(fromPath: string, rawHref: string): LinkRendering {
  * through, and link and image targets become live URLs only on an allowlisted
  * scheme: the app renders whatever happens to be in the repository, and the
  * same page can write files back to disk.
+ *
+ * `assetUrl` turns a resolved image path into the address it loads from. The
+ * live server serves one from the docs root on request; a static export has
+ * already copied the file, and passes the path it copied it to instead.
  * @docs convention.md#anchors
  */
-export function renderMarkdown(markdown: string, documentPath: string): string {
+export function renderMarkdown(
+  markdown: string,
+  documentPath: string,
+  assetUrl: (path: string) => string = LIVE_ASSET_URL,
+): string {
   const slugs = new SlugRegistry();
 
   const renderer: RendererObject = {
@@ -123,7 +134,7 @@ export function renderMarkdown(markdown: string, documentPath: string): string {
       if (resolved === undefined) {
         return `<span class="unlinked">${alt}</span>`;
       }
-      return `<img src="/asset?path=${encodeURIComponent(resolved)}" alt="${alt}">`;
+      return `<img src="${escapeHtml(assetUrl(resolved))}" alt="${alt}">`;
     },
     html(token: Tokens.HTML | Tokens.Tag): string {
       return escapeHtml(token.text);

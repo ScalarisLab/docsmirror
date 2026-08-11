@@ -1,3 +1,4 @@
+import { STATIC } from './api.js';
 import { agentReferenceFor, copyButton, markdownOf } from './copy.js';
 import { clear, el } from './dom.js';
 import { hrefFor } from './router.js';
@@ -186,7 +187,7 @@ export function renderFolio(container, { root, node, payload, surface, editing, 
             text: () => agentReferenceFor({ path: node.path, anchor: undefined, title: payload.title }),
             announce: actions.announce,
           }),
-      payload === undefined
+      payload === undefined || STATIC
         ? null
         : el('button', {
             type: 'button',

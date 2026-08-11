@@ -148,7 +148,15 @@ function sectionMatches(
   return results;
 }
 
-function searchIndexed(documents: readonly CorpusDocument[], query: string): SearchResult[] {
+/**
+ * The query logic itself, with no dependency on the project or the
+ * filesystem: given the corpus and a query, it is pure. `SearchIndex` calls
+ * it against documents read from disk; a static export bundles this function
+ * for the browser and calls it against a corpus baked in at export time, the
+ * same algorithm either way.
+ * @docs web.md#static-export
+ */
+export function searchIndexed(documents: readonly CorpusDocument[], query: string): SearchResult[] {
   const terms = queryTerms(query);
   if (terms.length === 0) {
     return [];

@@ -1,4 +1,4 @@
-import { fetchDiff, isUnavailable } from './api.js';
+import { fetchDiff, isUnavailable, STATIC } from './api.js';
 import { clear, el, formatDateTime, notice } from './dom.js';
 import { renderDiff } from './diff.js';
 import { buildLanes, ROW_HEIGHT } from './graph.js';
@@ -101,7 +101,7 @@ export function renderNoteHistory(container, { path, timeline }) {
     return;
   }
 
-  const entries = revisionEntries(timeline);
+  const entries = STATIC ? timeline : revisionEntries(timeline);
   const selection = {
     from: timeline[1]?.hash ?? timeline[0].hash,
     to: timeline[1] === undefined ? WORKTREE : timeline[0].hash,
@@ -137,7 +137,7 @@ export function renderNoteHistory(container, { path, timeline }) {
 
     rows.append(
       el('li', { class: 'timeline-row' }, [
-        el('span', { class: 'timeline-picks' }, [pick('from'), pick('to')]),
+        STATIC ? null : el('span', { class: 'timeline-picks' }, [pick('from'), pick('to')]),
         el('span', { class: 'timeline-body' }, [
           el('p', { class: 'commit-subject', text: entry.subject }),
           el('p', { class: 'commit-meta' }, [
@@ -153,9 +153,17 @@ export function renderNoteHistory(container, { path, timeline }) {
 
   container.append(
     el('p', { class: 'history-meta', text: `${timeline.length} ${timeline.length === 1 ? 'revision' : 'revisions'}` }),
-    el('div', { class: 'timeline-heads' }, [el('span', { text: 'from' }), el('span', { text: 'to' })]),
-    rows,
-    diffPane,
   );
+  if (STATIC) {
+    container.append(
+      rows,
+      notice(
+        'Comparing revisions needs a live server.',
+        'This is a static, read-only export. Run `docsmirror serve` locally to see the diff between any two of these.',
+      ),
+    );
+    return;
+  }
+  container.append(el('div', { class: 'timeline-heads' }, [el('span', { text: 'from' }), el('span', { text: 'to' })]), rows, diffPane);
   void showDiff();
 }
