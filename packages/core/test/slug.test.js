@@ -42,7 +42,7 @@ const SLUG_CASES = [
   ['Обзор', 'обзор', 'a non-Latin script'],
 
   // Runs of whitespace are never collapsed: each space becomes one hyphen.
-  ['Rule 2, the write path is dead', 'rule-2--the-write-path-is-dead', 'an em dash leaves two spaces'],
+  ['Search & Filter', 'search--filter', 'a removed symbol leaves the space on both sides, so two hyphens'],
   ['spaced    out', 'spaced----out', 'four spaces become four hyphens'],
   ['  trimmed  ', 'trimmed', 'leading and trailing whitespace is trimmed, not hyphenated'],
 
